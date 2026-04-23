@@ -1,0 +1,54 @@
+.page {
+  padding-top: 1.6rem;
+  padding-bottom: 1.2rem;
+}
+
+.header {
+  border: 1px solid var(--border-soft);
+  border-radius: 1.2rem;
+  background: var(--surface-card);
+  padding: 1.4rem 1.2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.header h1 {
+  margin: 0.72rem 0 0;
+  font-size: clamp(1.9rem, 2vw + 1rem, 2.8rem);
+  letter-spacing: -0.03em;
+}
+
+.header p {
+  margin: 0.7rem 0 0;
+  line-height: 1.75;
+  max-width: 62ch;
+  color: var(--text-secondary);
+}
+
+.searchArea {
+  margin-top: 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: color-mix(in oklab, var(--surface-card) 92%, white);
+}
+
+.grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 840px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

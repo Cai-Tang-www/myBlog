@@ -1,26 +1,139 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --surface-base: #f6f5f1;
+  --surface-card: #fffdf9;
+  --text-primary: #151312;
+  --text-secondary: #40372f;
+  --text-muted: #6e6258;
+  --accent-strong: #cb5a2c;
+  --accent-muted: #e58f52;
+  --border-soft: #dfd8ce;
+  --border-strong: #b9ad9d;
+  --shadow-soft: 0 12px 35px rgba(78, 53, 36, 0.08);
+  --container-width: min(1120px, calc(100vw - 2.4rem));
+  --ease-smooth: cubic-bezier(0.2, 0.72, 0.21, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at 85% 8%, rgba(229, 143, 82, 0.18), transparent 28%),
+    radial-gradient(circle at 12% 18%, rgba(203, 90, 44, 0.14), transparent 24%),
+    var(--surface-base);
+}
+
+a {
+  color: inherit;
+}
+
+.site-frame {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.container {
+  width: var(--container-width);
+  margin: 0 auto;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in oklab, var(--accent-strong) 35%, var(--border-soft));
+  border-radius: 999px;
+  color: color-mix(in oklab, var(--accent-strong) 74%, #2d1a10);
+  padding: 0.2rem 0.58rem;
+  font-size: 0.78rem;
+  background: color-mix(in oklab, var(--accent-muted) 10%, white);
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.18rem;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition:
+    transform 230ms var(--ease-smooth),
+    box-shadow 230ms var(--ease-smooth),
+    background-color 230ms var(--ease-smooth);
+}
+
+.button-primary {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--accent-strong), var(--accent-muted));
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(203, 90, 44, 0.23);
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(203, 90, 44, 0.3);
+}
+
+.button-secondary {
+  border: 1px solid var(--border-strong);
+  background: color-mix(in oklab, var(--surface-card) 90%, white);
+  color: var(--text-primary);
+}
+
+.button-secondary:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-strong);
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes morph {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate3d(6px, -12px, 0) scale(1.05);
+  }
+
+  66% {
+    transform: translate3d(-8px, 8px, 0) scale(0.96);
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --container-width: min(1120px, calc(100vw - 1.4rem));
+  }
 }

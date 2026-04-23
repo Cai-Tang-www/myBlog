@@ -1,65 +1,89 @@
-import Image from "next/image";
+import Link from "next/link";
+import { PostCard } from "@/components/post-card";
+import { getFeaturedPosts } from "@/lib/posts";
+import { phasePlan } from "@/lib/plan";
+import styles from "./page.module.css";
 
-export default function Home() {
+export default async function Home() {
+  const featuredPosts = await getFeaturedPosts(3);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className={styles.page}>
+      <section className={`container ${styles.hero}`}>
+        <div className={styles.decorLayer} aria-hidden="true">
+          <span className={`${styles.orb} ${styles.orbA}`} />
+          <span className={`${styles.orb} ${styles.orbB}`} />
+          <span className={`${styles.orb} ${styles.orbC}`} />
+        </div>
+        <div className={styles.heroLead}>
+          <p className={styles.kicker}>PERSONAL ENGINEERING BLOG</p>
+          <h1>
+            把灵感变成可交付内容，
+            <span>再把内容变成可复用系统。</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className={styles.intro}>
+            这个博客以 Next.js SSG 为核心，面向长期写作、技术沉淀和自动化发布。你现在看到的是第一版基础框架。
           </p>
+          <div className={styles.heroActions}>
+            <Link href="/blog" className="button-primary">
+              进入文章库
+            </Link>
+            <a href="#plan" className="button-secondary">
+              查看计划套餐
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <aside className={styles.heroPanel}>
+          <h2>基础框架已就绪</h2>
+          <ul>
+            <li>Next.js App Router + SSG 静态导出</li>
+            <li>Markdown 内容结构 + 博客路由</li>
+            <li>可扩展动效视觉系统</li>
+            <li>Pagefind / giscus / Pages 预接入</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section className={`container ${styles.postSection}`}>
+        <div className={styles.sectionHeader}>
+          <h2>精选文章</h2>
+          <Link href="/blog" className={styles.textLink}>
+            查看全部 →
+          </Link>
         </div>
-      </main>
+        <div className={styles.postGrid}>
+          {featuredPosts.map((post, index) => (
+            <PostCard key={post.slug} post={post} index={index} />
+          ))}
+        </div>
+      </section>
+
+      <section id="plan" className={`container ${styles.phaseSection}`}>
+        <div className={styles.sectionHeader}>
+          <h2>计划套餐</h2>
+          <p>按可交付结果拆分阶段，避免博客项目半途失速。</p>
+        </div>
+        <div className={styles.phaseGrid}>
+          {phasePlan.map((item, index) => (
+            <article
+              className={styles.phaseCard}
+              key={item.phase}
+              style={{ animationDelay: `${index * 90 + 160}ms` }}
+            >
+              <p className={styles.phaseMeta}>
+                <span>{item.phase}</span>
+                <span>{item.duration}</span>
+              </p>
+              <h3>{item.focus}</h3>
+              <ul>
+                {item.deliverables.map((deliverable) => (
+                  <li key={deliverable}>{deliverable}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

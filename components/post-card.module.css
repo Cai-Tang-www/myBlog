@@ -1,0 +1,67 @@
+.card {
+  border: 1px solid var(--border-soft);
+  border-radius: 1.1rem;
+  padding: 1rem;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-soft);
+  animation: fade-slide-up 680ms var(--ease-smooth) both;
+}
+
+.coverWrap {
+  margin-bottom: 0.85rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--border-soft) 80%, white);
+  aspect-ratio: 16 / 9;
+  background: color-mix(in oklab, var(--surface-base) 82%, white);
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 380ms var(--ease-smooth);
+}
+
+.card:hover .cover {
+  transform: scale(1.03);
+}
+
+.meta {
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+}
+
+.title {
+  margin: 0.7rem 0 0;
+  font-size: clamp(1.12rem, 1.4vw + 0.7rem, 1.38rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.title a:hover {
+  color: var(--accent-strong);
+}
+
+.summary {
+  margin: 0.7rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 0.94rem;
+}
+
+.tags {
+  margin-top: 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}

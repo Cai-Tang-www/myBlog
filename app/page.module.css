@@ -1,0 +1,250 @@
+.page {
+  display: grid;
+  gap: 2.6rem;
+  padding: 2rem 0 0.5rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.35fr 0.9fr;
+  gap: 1.4rem;
+  align-items: stretch;
+  position: relative;
+  isolation: isolate;
+}
+
+.decorLayer {
+  position: absolute;
+  inset: -8% 24% auto -7%;
+  height: 20rem;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(1px);
+  animation: morph 10s ease-in-out infinite;
+}
+
+.orbA {
+  width: 11rem;
+  height: 11rem;
+  left: 0;
+  top: 0;
+  background: radial-gradient(circle, rgba(203, 90, 44, 0.25), transparent 70%);
+}
+
+.orbB {
+  width: 7.8rem;
+  height: 7.8rem;
+  right: 25%;
+  top: 2.2rem;
+  background: radial-gradient(circle, rgba(131, 82, 54, 0.22), transparent 65%);
+  animation-delay: -2.2s;
+}
+
+.orbC {
+  width: 6rem;
+  height: 6rem;
+  left: 24%;
+  bottom: 1rem;
+  background: radial-gradient(circle, rgba(229, 143, 82, 0.3), transparent 68%);
+  animation-delay: -4.4s;
+}
+
+.heroLead {
+  border: 1px solid var(--border-soft);
+  border-radius: 1.4rem;
+  background: color-mix(in oklab, var(--surface-card) 92%, white);
+  box-shadow: var(--shadow-soft);
+  padding: 1.8rem 1.7rem;
+  animation: fade-slide-up 760ms var(--ease-smooth) both;
+}
+
+.kicker {
+  margin: 0;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.heroLead h1 {
+  margin: 0.8rem 0 0;
+  font-size: clamp(2rem, 3vw + 1rem, 3.45rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.heroLead h1 span {
+  display: block;
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  color: color-mix(in oklab, var(--accent-strong) 88%, #3e2418);
+}
+
+.intro {
+  margin: 1rem 0 0;
+  max-width: 56ch;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.heroActions {
+  margin-top: 1.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.heroPanel {
+  border: 1px solid var(--border-soft);
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in oklab, var(--surface-card) 88%, white),
+      color-mix(in oklab, var(--surface-card) 95%, #fffbf6)
+    );
+  padding: 1.45rem 1.3rem;
+  box-shadow: var(--shadow-soft);
+  animation: fade-slide-up 820ms var(--ease-smooth) both;
+}
+
+.heroPanel h2 {
+  margin: 0;
+  font-size: 1.16rem;
+}
+
+.heroPanel ul {
+  margin: 0.8rem 0 0;
+  padding-left: 1.08rem;
+  display: grid;
+  gap: 0.58rem;
+  color: var(--text-secondary);
+}
+
+.postSection {
+  border: 1px solid var(--border-soft);
+  border-radius: 1.2rem;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-soft);
+  padding: 1.3rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 1vw + 1rem, 2rem);
+  letter-spacing: -0.02em;
+}
+
+.sectionHeader p {
+  margin: 0;
+  color: var(--text-secondary);
+  max-width: 34rem;
+  line-height: 1.6;
+}
+
+.textLink {
+  color: var(--accent-strong);
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.postGrid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.phaseSection {
+  border: 1px solid var(--border-soft);
+  border-radius: 1.2rem;
+  background: color-mix(in oklab, var(--surface-card) 90%, #fff);
+  box-shadow: var(--shadow-soft);
+  padding: 1.3rem;
+}
+
+.phaseGrid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.phaseCard {
+  border-radius: 1rem;
+  border: 1px solid var(--border-soft);
+  padding: 1rem 0.95rem;
+  background: color-mix(in oklab, var(--surface-card) 82%, white);
+  animation: fade-slide-up 720ms var(--ease-smooth) both;
+}
+
+.phaseMeta {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.phaseCard h3 {
+  margin: 0.55rem 0 0;
+  font-size: 1.08rem;
+}
+
+.phaseCard ul {
+  margin: 0.7rem 0 0;
+  padding-left: 1rem;
+  color: var(--text-secondary);
+  display: grid;
+  gap: 0.45rem;
+}
+
+@media (max-width: 1020px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .postGrid,
+  .phaseGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    gap: 1.6rem;
+  }
+
+  .heroLead {
+    padding: 1.2rem 1rem;
+  }
+
+  .heroPanel {
+    padding: 1rem;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .postGrid,
+  .phaseGrid {
+    grid-template-columns: 1fr;
+  }
+}
