@@ -6,6 +6,10 @@ const imageBaseUrl = (process.env.NEXT_PUBLIC_IMAGE_BASE_URL ?? "").replace(
   /\/+$/,
   ""
 );
+const publicBasePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(
+  /\/+$/,
+  ""
+);
 
 interface ImageBuildOptions {
   width?: number;
@@ -20,6 +24,22 @@ function normalizePath(value: string): string {
   return value.replace(/^\/+/, "");
 }
 
+function withBasePath(input: string): string {
+  const normalized = input.startsWith("/") ? input : `/${normalizePath(input)}`;
+  if (!publicBasePath) {
+    return normalized;
+  }
+
+  if (
+    normalized === publicBasePath ||
+    normalized.startsWith(`${publicBasePath}/`)
+  ) {
+    return normalized;
+  }
+
+  return `${publicBasePath}${normalized}`;
+}
+
 function resolveSource(input: string): string {
   if (!input) {
     return input;
@@ -30,10 +50,7 @@ function resolveSource(input: string): string {
   }
 
   if (!imageBaseUrl) {
-    if (input.startsWith("/")) {
-      return input;
-    }
-    return `/${normalizePath(input)}`;
+    return withBasePath(input);
   }
 
   return `${imageBaseUrl}/${normalizePath(input)}`;
