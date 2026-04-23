@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./comments.module.css";
 
 interface GiscusConfig {
@@ -28,11 +28,15 @@ export function Comments() {
   const pathname = usePathname();
   const hostRef = useRef<HTMLDivElement | null>(null);
   const config = useMemo(() => readGiscusConfig(), []);
+  const [status, setStatus] = useState<"loading" | "ready" | "blocked">(
+    "loading"
+  );
 
   useEffect(() => {
     if (!config || !hostRef.current) {
       return;
     }
+    setStatus("loading");
 
     const script = document.createElement("script");
     script.src = "https://giscus.app/client.js";
@@ -50,9 +54,31 @@ export function Comments() {
     script.setAttribute("data-theme", "preferred_color_scheme");
     script.setAttribute("data-lang", "zh-CN");
     script.setAttribute("data-loading", "lazy");
+    script.addEventListener("error", () => setStatus("blocked"));
 
     hostRef.current.innerHTML = "";
     hostRef.current.appendChild(script);
+
+    const timer = window.setTimeout(() => {
+      const frame = hostRef.current?.querySelector("iframe.giscus-frame");
+      if (!frame) {
+        setStatus("blocked");
+      }
+    }, 3000);
+
+    const observer = new MutationObserver(() => {
+      const frame = hostRef.current?.querySelector("iframe.giscus-frame");
+      if (frame) {
+        setStatus("ready");
+      }
+    });
+
+    observer.observe(hostRef.current, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timer);
+    };
   }, [config, pathname]);
 
   if (!config) {
@@ -70,6 +96,15 @@ export function Comments() {
 
   return (
     <section className={styles.wrapper} aria-label="评论区">
+      <h2 className={styles.title}>评论</h2>
+      {status === "loading" ? (
+        <p className={styles.hint}>评论组件加载中…</p>
+      ) : null}
+      {status === "blocked" ? (
+        <p className={styles.hint}>
+          评论未加载成功。请关闭广告/隐私拦截插件后刷新，或直接前往仓库 Discussions 参与讨论。
+        </p>
+      ) : null}
       <div ref={hostRef} />
     </section>
   );
