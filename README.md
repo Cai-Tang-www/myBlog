@@ -1,4 +1,4 @@
-# Mosaic Log
+# Ca1_Tang
 
 一个基于 Next.js SSG 的个人博客基础框架，目标是可长期写作、可自动部署、可扩展到 MCP。
 
