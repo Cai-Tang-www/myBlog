@@ -51,7 +51,7 @@ export function Comments() {
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-input-position", "top");
-    script.setAttribute("data-theme", "preferred_color_scheme");
+    script.setAttribute("data-theme", "dark_dimmed");
     script.setAttribute("data-lang", "zh-CN");
     script.setAttribute("data-loading", "lazy");
     script.addEventListener("error", () => setStatus("blocked"));

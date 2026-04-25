@@ -6,7 +6,11 @@
 .header {
   border: 1px solid var(--border-soft);
   border-radius: 1.2rem;
-  background: var(--surface-card);
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--surface-card) 94%, #0c1320),
+    color-mix(in oklab, var(--surface-card-soft) 80%, #0c1320)
+  );
   padding: 1.4rem 1.2rem;
   box-shadow: var(--shadow-soft);
 }
@@ -27,7 +31,7 @@
 
 .header p {
   margin: 0.7rem 0 0;
-  line-height: 1.75;
+  line-height: 1.7;
   max-width: 62ch;
   color: var(--text-secondary);
 }
@@ -37,7 +41,47 @@
   border: 1px solid var(--border-soft);
   border-radius: 1rem;
   padding: 1rem;
-  background: color-mix(in oklab, var(--surface-card) 92%, white);
+  background: color-mix(in oklab, var(--surface-card-soft) 70%, #0d1522);
+}
+
+.searchArea :global(.pagefind-ui__form) {
+  margin-bottom: 0.8rem;
+}
+
+.searchArea :global(.pagefind-ui__search-input) {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.9rem;
+  background: color-mix(in oklab, var(--surface-card) 88%, #0a101a);
+  color: var(--text-primary);
+  padding: 0.72rem 0.84rem;
+  font-size: 0.95rem;
+}
+
+.searchArea :global(.pagefind-ui__search-input::placeholder) {
+  color: var(--text-muted);
+}
+
+.searchArea :global(.pagefind-ui__result) {
+  border: 1px solid var(--border-soft);
+  border-radius: 0.85rem;
+  padding: 0.72rem 0.78rem;
+  margin-top: 0.7rem;
+  background: color-mix(in oklab, var(--surface-card) 90%, #0f1726);
+}
+
+.searchArea :global(.pagefind-ui__result-title),
+.searchArea :global(.pagefind-ui__result-link) {
+  color: var(--text-primary);
+}
+
+.searchArea :global(.pagefind-ui__result-excerpt) {
+  color: var(--text-secondary);
+}
+
+.searchArea :global(mark) {
+  background: color-mix(in oklab, var(--accent-strong) 38%, transparent);
+  color: var(--text-primary);
 }
 
 .grid {

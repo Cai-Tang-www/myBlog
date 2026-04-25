@@ -1,13 +1,13 @@
 .page {
   display: grid;
-  gap: 2.6rem;
-  padding: 2rem 0 0.5rem;
+  gap: 2rem;
+  padding: 1.8rem 0 0.7rem;
 }
 
 .hero {
   display: grid;
-  grid-template-columns: 1.35fr 0.9fr;
-  gap: 1.4rem;
+  grid-template-columns: 1.45fr 0.95fr;
+  gap: 1rem;
   align-items: stretch;
   position: relative;
   isolation: isolate;
@@ -15,8 +15,8 @@
 
 .decorLayer {
   position: absolute;
-  inset: -8% 24% auto -7%;
-  height: 20rem;
+  inset: -10% 30% auto -6%;
+  height: 18rem;
   z-index: -1;
   pointer-events: none;
 }
@@ -24,24 +24,24 @@
 .orb {
   position: absolute;
   border-radius: 999px;
-  filter: blur(1px);
-  animation: morph 10s ease-in-out infinite;
+  filter: blur(8px);
+  animation: morph 14s ease-in-out infinite;
 }
 
 .orbA {
-  width: 11rem;
-  height: 11rem;
+  width: 10rem;
+  height: 10rem;
   left: 0;
   top: 0;
-  background: radial-gradient(circle, rgba(203, 90, 44, 0.25), transparent 70%);
+  background: radial-gradient(circle, rgba(83, 181, 255, 0.3), transparent 70%);
 }
 
 .orbB {
-  width: 7.8rem;
-  height: 7.8rem;
+  width: 8rem;
+  height: 8rem;
   right: 25%;
   top: 2.2rem;
-  background: radial-gradient(circle, rgba(131, 82, 54, 0.22), transparent 65%);
+  background: radial-gradient(circle, rgba(127, 214, 255, 0.26), transparent 65%);
   animation-delay: -2.2s;
 }
 
@@ -50,22 +50,26 @@
   height: 6rem;
   left: 24%;
   bottom: 1rem;
-  background: radial-gradient(circle, rgba(229, 143, 82, 0.3), transparent 68%);
+  background: radial-gradient(circle, rgba(83, 181, 255, 0.24), transparent 68%);
   animation-delay: -4.4s;
 }
 
 .heroLead {
   border: 1px solid var(--border-soft);
-  border-radius: 1.4rem;
-  background: color-mix(in oklab, var(--surface-card) 92%, white);
+  border-radius: 1.2rem;
+  background: linear-gradient(
+    165deg,
+    color-mix(in oklab, var(--surface-card) 92%, #0c1320),
+    color-mix(in oklab, var(--surface-card-soft) 84%, #0c1320)
+  );
   box-shadow: var(--shadow-soft);
-  padding: 1.8rem 1.7rem;
+  padding: 1.7rem 1.5rem;
   animation: fade-slide-up 760ms var(--ease-smooth) both;
 }
 
 .kicker {
   margin: 0;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   font-size: 0.72rem;
   color: var(--accent-strong);
@@ -73,9 +77,9 @@
 }
 
 .heroLead h1 {
-  margin: 0.8rem 0 0;
+  margin: 0.75rem 0 0;
   font-size: clamp(2rem, 3vw + 1rem, 3.45rem);
-  line-height: 1.05;
+  line-height: 1.06;
   letter-spacing: -0.03em;
 }
 
@@ -83,18 +87,18 @@
   display: block;
   font-family: var(--font-serif), Georgia, serif;
   font-style: italic;
-  color: color-mix(in oklab, var(--accent-strong) 88%, #3e2418);
+  color: color-mix(in oklab, var(--accent-strong) 88%, #caecff);
 }
 
 .intro {
   margin: 1rem 0 0;
   max-width: 56ch;
   color: var(--text-secondary);
-  line-height: 1.8;
+  line-height: 1.75;
 }
 
 .heroActions {
-  margin-top: 1.3rem;
+  margin-top: 1.25rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -102,14 +106,14 @@
 
 .heroPanel {
   border: 1px solid var(--border-soft);
-  border-radius: 1.4rem;
+  border-radius: 1.2rem;
   background:
     linear-gradient(
       165deg,
-      color-mix(in oklab, var(--surface-card) 88%, white),
-      color-mix(in oklab, var(--surface-card) 95%, #fffbf6)
+      color-mix(in oklab, var(--surface-card-soft) 86%, #0a111d),
+      color-mix(in oklab, var(--surface-card) 92%, #0f1828)
     );
-  padding: 1.45rem 1.3rem;
+  padding: 1.35rem 1.2rem;
   box-shadow: var(--shadow-soft);
   animation: fade-slide-up 820ms var(--ease-smooth) both;
 }
@@ -130,7 +134,11 @@
 .postSection {
   border: 1px solid var(--border-soft);
   border-radius: 1.2rem;
-  background: var(--surface-card);
+  background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--surface-card) 94%, #0d1421),
+    color-mix(in oklab, var(--surface-card-soft) 80%, #0d1421)
+  );
   box-shadow: var(--shadow-soft);
   padding: 1.3rem;
 }
@@ -159,6 +167,11 @@
   color: var(--accent-strong);
   font-size: 0.92rem;
   text-decoration: none;
+  transition: transform 180ms ease;
+}
+
+.textLink:hover {
+  transform: translateX(2px);
 }
 
 .postGrid {
@@ -171,7 +184,11 @@
 .phaseSection {
   border: 1px solid var(--border-soft);
   border-radius: 1.2rem;
-  background: color-mix(in oklab, var(--surface-card) 90%, #fff);
+  background: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--surface-card) 95%, #0c1421),
+    color-mix(in oklab, var(--surface-card-soft) 82%, #0c1421)
+  );
   box-shadow: var(--shadow-soft);
   padding: 1.3rem;
 }
@@ -187,7 +204,7 @@
   border-radius: 1rem;
   border: 1px solid var(--border-soft);
   padding: 1rem 0.95rem;
-  background: color-mix(in oklab, var(--surface-card) 82%, white);
+  background: color-mix(in oklab, var(--surface-card-soft) 72%, #0c1320);
   animation: fade-slide-up 720ms var(--ease-smooth) both;
 }
 

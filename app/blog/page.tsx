@@ -22,7 +22,7 @@ export default async function BlogPage() {
         <p className={styles.kicker}>ARTICLE INDEX</p>
         <h1>文章归档</h1>
         <p>
-          当前是静态站点搜索模式。部署时执行 `pagefind --site out` 后，搜索框会自动加载可用索引。
+          支持全文检索和标签筛选。每次构建后会自动更新静态搜索索引。
         </p>
       </header>
 

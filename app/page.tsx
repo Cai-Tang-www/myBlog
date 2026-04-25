@@ -16,13 +16,13 @@ export default async function Home() {
           <span className={`${styles.orb} ${styles.orbC}`} />
         </div>
         <div className={styles.heroLead}>
-          <p className={styles.kicker}>PERSONAL ENGINEERING BLOG</p>
+          <p className={styles.kicker}>CA1_TANG / ENGINEERING NOTES</p>
           <h1>
-            把灵感变成可交付内容，
-            <span>再把内容变成可复用系统。</span>
+            从想法到交付，
+            <span>把内容沉淀成可复用系统。</span>
           </h1>
           <p className={styles.intro}>
-            这个博客以 Next.js SSG 为核心，面向长期写作、技术沉淀和自动化发布。你现在看到的是第一版基础框架。
+            这是一个偏工程实践的个人博客，聚焦 Agent、工作流、内容系统和长期可维护的技术资产建设。
           </p>
           <div className={styles.heroActions}>
             <Link href="/blog" className="button-primary">
@@ -34,12 +34,12 @@ export default async function Home() {
           </div>
         </div>
         <aside className={styles.heroPanel}>
-          <h2>基础框架已就绪</h2>
+          <h2>当前站点能力</h2>
           <ul>
             <li>Next.js App Router + SSG 静态导出</li>
             <li>Markdown 内容结构 + 博客路由</li>
-            <li>可扩展动效视觉系统</li>
-            <li>Pagefind / giscus / Pages 预接入</li>
+            <li>Pagefind 全站搜索</li>
+            <li>giscus 评论与自动化部署</li>
           </ul>
         </aside>
       </section>
@@ -61,7 +61,7 @@ export default async function Home() {
       <section id="plan" className={`container ${styles.phaseSection}`}>
         <div className={styles.sectionHeader}>
           <h2>计划套餐</h2>
-          <p>按可交付结果拆分阶段，避免博客项目半途失速。</p>
+          <p>按阶段推进结构、内容和自动化，持续可迭代。</p>
         </div>
         <div className={styles.phaseGrid}>
           {phasePlan.map((item, index) => (
