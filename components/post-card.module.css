@@ -2,18 +2,26 @@
   border: 1px solid var(--border-soft);
   border-radius: 1.1rem;
   padding: 1rem;
-  background: var(--surface-card);
+  background: color-mix(in oklab, var(--surface-card) 92%, #0b121d);
   box-shadow: var(--shadow-soft);
   animation: fade-slide-up 680ms var(--ease-smooth) both;
+  transition:
+    transform 220ms var(--ease-smooth),
+    border-color 220ms var(--ease-smooth);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklab, var(--accent-strong) 40%, var(--border-soft));
 }
 
 .coverWrap {
   margin-bottom: 0.85rem;
   border-radius: 0.8rem;
   overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--border-soft) 80%, white);
+  border: 1px solid color-mix(in oklab, var(--border-soft) 90%, #122036);
   aspect-ratio: 16 / 9;
-  background: color-mix(in oklab, var(--surface-base) 82%, white);
+  background: color-mix(in oklab, var(--surface-base) 82%, #111c2b);
 }
 
 .cover {

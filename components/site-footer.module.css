@@ -2,6 +2,7 @@
   margin-top: 4rem;
   border-top: 1px solid var(--border-soft);
   padding: 2.4rem 0 2.8rem;
+  background: color-mix(in oklab, var(--surface-base) 82%, #060a10);
 }
 
 .inner {
@@ -36,7 +37,7 @@
 }
 
 .links a:hover {
-  color: var(--text-primary);
+  color: var(--accent-strong);
 }
 
 @media (max-width: 680px) {
