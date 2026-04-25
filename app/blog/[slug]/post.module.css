@@ -139,6 +139,20 @@
   border: 1px solid var(--border-soft);
 }
 
+.content :global(.mermaid) {
+  margin-top: 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 0.9rem;
+  background: color-mix(in oklab, var(--surface-card-soft) 72%, #ffffff);
+  padding: 0.8rem;
+  overflow-x: auto;
+}
+
+.content :global(.mermaid svg) {
+  max-width: 100%;
+  height: auto;
+}
+
 .backArea {
   margin-top: 2rem;
 }
