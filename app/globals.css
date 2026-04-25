@@ -1,15 +1,15 @@
 :root {
-  --surface-base: #0b1119;
-  --surface-card: #121a26;
-  --surface-card-soft: #182233;
-  --text-primary: #edf2ff;
-  --text-secondary: #b8c4da;
-  --text-muted: #8392ad;
-  --accent-strong: #53b5ff;
-  --accent-muted: #7fd6ff;
-  --border-soft: #27364e;
-  --border-strong: #3a5476;
-  --shadow-soft: 0 20px 45px rgba(4, 8, 15, 0.45);
+  --surface-base: #f7f9ff;
+  --surface-card: #ffffff;
+  --surface-card-soft: #f3f6ff;
+  --text-primary: #182338;
+  --text-secondary: #3a4a68;
+  --text-muted: #6a7894;
+  --accent-strong: #5c7cff;
+  --accent-muted: #85c7ff;
+  --border-soft: #dbe3f2;
+  --border-strong: #c4d0e7;
+  --shadow-soft: 0 14px 34px rgba(31, 60, 120, 0.09);
   --container-width: min(1140px, calc(100vw - 2.4rem));
   --ease-smooth: cubic-bezier(0.2, 0.72, 0.21, 1);
 }
@@ -31,8 +31,8 @@ body {
   font-family: var(--font-sans), "Segoe UI", sans-serif;
   color: var(--text-primary);
   background:
-    radial-gradient(circle at 82% 6%, rgba(83, 181, 255, 0.18), transparent 30%),
-    radial-gradient(circle at 16% 20%, rgba(127, 214, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 84% 8%, rgba(133, 199, 255, 0.28), transparent 34%),
+    radial-gradient(circle at 16% 18%, rgba(142, 126, 255, 0.14), transparent 30%),
     var(--surface-base);
 }
 
@@ -64,7 +64,7 @@ main {
   align-items: center;
   border: 1px solid color-mix(in oklab, var(--accent-strong) 30%, var(--border-soft));
   border-radius: 999px;
-  color: color-mix(in oklab, var(--accent-strong) 72%, #d2ecff);
+  color: color-mix(in oklab, var(--accent-strong) 72%, #1f2f4b);
   padding: 0.2rem 0.58rem;
   font-size: 0.78rem;
   background: color-mix(in oklab, var(--accent-strong) 16%, var(--surface-card));
@@ -90,18 +90,18 @@ main {
 .button-primary {
   border: 1px solid transparent;
   background: linear-gradient(135deg, var(--accent-strong), var(--accent-muted));
-  color: #07121f;
-  box-shadow: 0 12px 26px rgba(57, 154, 225, 0.3);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(92, 124, 255, 0.25);
 }
 
 .button-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 34px rgba(57, 154, 225, 0.38);
+  box-shadow: 0 16px 28px rgba(92, 124, 255, 0.32);
 }
 
 .button-secondary {
   border: 1px solid var(--border-strong);
-  background: color-mix(in oklab, var(--surface-card) 90%, #0c131f);
+  background: color-mix(in oklab, var(--surface-card) 94%, #ffffff);
   color: var(--text-secondary);
 }
 

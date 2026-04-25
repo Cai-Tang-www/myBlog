@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Comments } from "@/components/comments";
+import { MarkdownContent } from "@/components/markdown-content";
 import { PostCard } from "@/components/post-card";
 import {
   formatPublishedAt,
@@ -87,10 +88,7 @@ export default async function PostPage({ params }: PostPageProps) {
           ) : null}
         </header>
 
-        <section
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-        />
+        <MarkdownContent className={styles.content} html={post.contentHtml} />
 
         <div className={styles.backArea}>
           <Link href="/blog" className="button-secondary">

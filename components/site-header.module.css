@@ -73,7 +73,7 @@
   border: 1px solid var(--border-strong);
   padding: 0.5rem 0.9rem;
   border-radius: 999px;
-  background: color-mix(in oklab, var(--surface-card) 86%, #0a111b);
+  background: color-mix(in oklab, var(--surface-card) 88%, #ffffff);
   text-decoration: none;
   font-size: 0.86rem;
   font-weight: 600;
