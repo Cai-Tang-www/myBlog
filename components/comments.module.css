@@ -21,7 +21,7 @@
   border: 1px dashed var(--border-strong);
   border-radius: 1rem;
   padding: 1.25rem 1.1rem;
-  background: color-mix(in oklab, var(--surface-card-soft) 70%, #0f1624);
+  background: color-mix(in oklab, var(--surface-card-soft) 74%, #ffffff);
 }
 
 .fallback h2 {

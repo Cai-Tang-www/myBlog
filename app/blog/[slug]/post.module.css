@@ -10,8 +10,8 @@
   border-radius: 1.2rem;
   background: linear-gradient(
     160deg,
-    color-mix(in oklab, var(--surface-card) 95%, #0b121d),
-    color-mix(in oklab, var(--surface-card-soft) 78%, #0b121d)
+    color-mix(in oklab, var(--surface-card) 95%, #ffffff),
+    color-mix(in oklab, var(--surface-card-soft) 78%, #ffffff)
   );
   box-shadow: var(--shadow-soft);
   padding: 1.5rem 1.25rem;
@@ -64,7 +64,7 @@
   margin-top: 1.4rem;
   font-family: var(--font-serif), Georgia, serif;
   line-height: 1.88;
-  color: color-mix(in oklab, var(--text-primary) 94%, #d8e4ff);
+  color: color-mix(in oklab, var(--text-primary) 94%, #111827);
   font-size: 1.08rem;
 }
 
@@ -104,8 +104,8 @@
   border-radius: 0.9rem;
   overflow-x: auto;
   border: 1px solid color-mix(in oklab, var(--accent-strong) 30%, var(--border-soft));
-  background: #0a1018;
-  color: #dde8ff;
+  background: #f3f6ff;
+  color: #22314d;
   font-size: 0.92rem;
 }
 
@@ -146,7 +146,7 @@
 .related {
   border: 1px solid var(--border-soft);
   border-radius: 1.2rem;
-  background: color-mix(in oklab, var(--surface-card-soft) 70%, #0a111d);
+  background: color-mix(in oklab, var(--surface-card-soft) 72%, #ffffff);
   padding: 1.1rem;
 }
 

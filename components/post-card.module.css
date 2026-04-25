@@ -2,7 +2,7 @@
   border: 1px solid var(--border-soft);
   border-radius: 1.1rem;
   padding: 1rem;
-  background: color-mix(in oklab, var(--surface-card) 92%, #0b121d);
+  background: color-mix(in oklab, var(--surface-card) 92%, #ffffff);
   box-shadow: var(--shadow-soft);
   animation: fade-slide-up 680ms var(--ease-smooth) both;
   transition:
@@ -19,9 +19,9 @@
   margin-bottom: 0.85rem;
   border-radius: 0.8rem;
   overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--border-soft) 90%, #122036);
+  border: 1px solid color-mix(in oklab, var(--border-soft) 90%, #ffffff);
   aspect-ratio: 16 / 9;
-  background: color-mix(in oklab, var(--surface-base) 82%, #111c2b);
+  background: color-mix(in oklab, var(--surface-base) 82%, #ffffff);
 }
 
 .cover {

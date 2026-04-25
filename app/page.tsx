@@ -18,8 +18,8 @@ export default async function Home() {
         <div className={styles.heroLead}>
           <p className={styles.kicker}>CA1_TANG / ENGINEERING NOTES</p>
           <h1>
-            从想法到交付，
-            <span>把内容沉淀成可复用系统。</span>
+            从想法到交付
+            <span className={styles.subline}>先回答要解决什么问题</span>
           </h1>
           <p className={styles.intro}>
             这是一个偏工程实践的个人博客，聚焦 Agent、工作流、内容系统和长期可维护的技术资产建设。

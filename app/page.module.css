@@ -59,8 +59,8 @@
   border-radius: 1.2rem;
   background: linear-gradient(
     165deg,
-    color-mix(in oklab, var(--surface-card) 92%, #0c1320),
-    color-mix(in oklab, var(--surface-card-soft) 84%, #0c1320)
+    color-mix(in oklab, var(--surface-card) 93%, #ffffff),
+    color-mix(in oklab, var(--surface-card-soft) 84%, #ffffff)
   );
   box-shadow: var(--shadow-soft);
   padding: 1.7rem 1.5rem;
@@ -85,9 +85,18 @@
 
 .heroLead h1 span {
   display: block;
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  color: color-mix(in oklab, var(--accent-strong) 88%, #caecff);
+  color: color-mix(in oklab, var(--accent-strong) 80%, #4c66d8);
+}
+
+.subline {
+  margin-top: 0.35rem;
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+  font-style: normal;
+  font-size: clamp(1.15rem, 1.2vw + 0.65rem, 1.82rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.28;
+  opacity: 0.96;
 }
 
 .intro {
@@ -110,8 +119,8 @@
   background:
     linear-gradient(
       165deg,
-      color-mix(in oklab, var(--surface-card-soft) 86%, #0a111d),
-      color-mix(in oklab, var(--surface-card) 92%, #0f1828)
+      color-mix(in oklab, var(--surface-card-soft) 86%, #ffffff),
+      color-mix(in oklab, var(--surface-card) 92%, #ffffff)
     );
   padding: 1.35rem 1.2rem;
   box-shadow: var(--shadow-soft);
@@ -136,8 +145,8 @@
   border-radius: 1.2rem;
   background: linear-gradient(
     170deg,
-    color-mix(in oklab, var(--surface-card) 94%, #0d1421),
-    color-mix(in oklab, var(--surface-card-soft) 80%, #0d1421)
+    color-mix(in oklab, var(--surface-card) 95%, #ffffff),
+    color-mix(in oklab, var(--surface-card-soft) 82%, #ffffff)
   );
   box-shadow: var(--shadow-soft);
   padding: 1.3rem;
@@ -186,8 +195,8 @@
   border-radius: 1.2rem;
   background: linear-gradient(
     170deg,
-    color-mix(in oklab, var(--surface-card) 95%, #0c1421),
-    color-mix(in oklab, var(--surface-card-soft) 82%, #0c1421)
+    color-mix(in oklab, var(--surface-card) 95%, #ffffff),
+    color-mix(in oklab, var(--surface-card-soft) 82%, #ffffff)
   );
   box-shadow: var(--shadow-soft);
   padding: 1.3rem;
@@ -204,7 +213,7 @@
   border-radius: 1rem;
   border: 1px solid var(--border-soft);
   padding: 1rem 0.95rem;
-  background: color-mix(in oklab, var(--surface-card-soft) 72%, #0c1320);
+  background: color-mix(in oklab, var(--surface-card-soft) 74%, #ffffff);
   animation: fade-slide-up 720ms var(--ease-smooth) both;
 }
 
