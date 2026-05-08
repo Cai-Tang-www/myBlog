@@ -1,12 +1,14 @@
-```
-title：Skill--agent的技能系统
-summary：好的架构做减法，功能做乘法。--许世伟
-publishedAt：2026-4-17
-tags：
-  - vibCoding
+---
+title: Skill：Agent 的技能系统
+summary: 好的架构做减法，功能做乘法。结合我在 Agent 项目中的实践，梳理 Skills 的定位、边界和落地方式。
+publishedAt: 2026-04-17
+tags:
+  - Agent
   - Skills
-  - feat
-```
+  - Engineering
+featured: true
+featuredOrder: 3
+---
 
 关于 Skills ，我认为它其实就是Agent的技能/插件系统。
 

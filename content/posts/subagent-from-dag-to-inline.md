@@ -1,6 +1,5 @@
 ---
-title: SubAgent 不是多开几个模型：
-NeoCode 从 DAG 试错到 inline 最小闭环的复盘
+title: SubAgent 不是多开几个模型：NeoCode 从 DAG 试错到 inline 最小闭环的复盘
 summary: 这篇文章不是泛架构科普，而是 NeoCode 的真实项目复盘：我如何从“想做 DAG 多智能体编排”收敛到“先把单 Agent 闭环和 inline 子代理做稳”，以及这条路线对用户价值、团队协作、里程碑风险和后续演进的影响。
 publishedAt: 2026-05-08
 tags:
@@ -10,6 +9,7 @@ tags:
   - ReAct
   - Engineering
 featured: true
+featuredOrder: 2
 ---
 
 我最近参加了七牛 1024 实训营，做的是一个 code agent 项目：[1024XEngineer/neo-code](https://github.com/1024XEngineer/neo-code)。

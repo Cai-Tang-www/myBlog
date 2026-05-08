@@ -16,6 +16,7 @@ interface PostFrontmatter {
   tags?: string[];
   cover?: string;
   featured?: boolean;
+  featuredOrder?: number;
   draft?: boolean;
 }
 
@@ -27,6 +28,7 @@ export interface PostSummary {
   tags: string[];
   cover?: string;
   featured: boolean;
+  featuredOrder?: number;
   readingMinutes: number;
 }
 
@@ -99,6 +101,10 @@ function toSummary(
     tags: frontmatter.tags ?? [],
     cover: frontmatter.cover ? buildImageUrl(frontmatter.cover, { width: 960 }) : undefined,
     featured: Boolean(frontmatter.featured),
+    featuredOrder:
+      typeof frontmatter.featuredOrder === "number"
+        ? frontmatter.featuredOrder
+        : undefined,
     readingMinutes: Math.max(1, Math.round(words / WORDS_PER_MINUTE)),
   };
 }
@@ -153,7 +159,16 @@ export async function getAllPosts(): Promise<PostSummary[]> {
 
 export async function getFeaturedPosts(limit = 3): Promise<PostSummary[]> {
   const posts = await getAllPosts();
-  const featuredPosts = posts.filter((post) => post.featured);
+  const featuredPosts = posts
+    .filter((post) => post.featured)
+    .sort((a, b) => {
+      const aOrder = a.featuredOrder ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = b.featuredOrder ?? Number.MAX_SAFE_INTEGER;
+      if (aOrder !== bOrder) {
+        return aOrder - bOrder;
+      }
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    });
   if (featuredPosts.length >= limit) {
     return featuredPosts.slice(0, limit);
   }
