@@ -11,6 +11,7 @@ const WORDS_PER_MINUTE = 240;
 
 interface PostFrontmatter {
   title?: string;
+  titleLines?: string[];
   summary?: string;
   publishedAt?: string;
   tags?: string[];
@@ -23,6 +24,7 @@ interface PostFrontmatter {
 export interface PostSummary {
   slug: string;
   title: string;
+  titleLines?: string[];
   summary: string;
   publishedAt: string;
   tags: string[];
@@ -96,6 +98,11 @@ function toSummary(
   return {
     slug,
     title: frontmatter.title ?? slug,
+    titleLines: Array.isArray(frontmatter.titleLines)
+      ? frontmatter.titleLines
+          .map((line) => String(line).trim())
+          .filter((line) => line.length > 0)
+      : undefined,
     summary: frontmatter.summary ?? "内容摘要待补充。",
     publishedAt: safeDate(frontmatter.publishedAt),
     tags: frontmatter.tags ?? [],
