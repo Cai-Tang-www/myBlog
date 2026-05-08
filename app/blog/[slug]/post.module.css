@@ -34,7 +34,13 @@
   margin: 0.75rem 0 0;
   font-size: clamp(2rem, 3vw + 0.8rem, 3.2rem);
   letter-spacing: -0.03em;
-  line-height: 1.08;
+  line-height: 1.12;
+  max-width: 100%;
+}
+
+.titleLineManual {
+  display: block;
+  white-space: nowrap;
 }
 
 .summary {
@@ -185,6 +191,10 @@
 @media (max-width: 720px) {
   .article {
     padding: 1.1rem 0.9rem;
+  }
+
+  .titleLineManual {
+    white-space: normal;
   }
 
   .content {

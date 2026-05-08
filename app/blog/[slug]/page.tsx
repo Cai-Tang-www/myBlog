@@ -58,6 +58,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const relatedPosts = await getRelatedPosts(post.slug, post.tags, 3);
+  const titleLines = post.titleLines ?? [];
 
   return (
     <div className={`container ${styles.page}`}>
@@ -68,7 +69,15 @@ export default async function PostPage({ params }: PostPageProps) {
             <span>·</span>
             <span>{post.readingMinutes} 分钟阅读</span>
           </p>
-          <h1 data-pagefind-meta="title">{post.title}</h1>
+          <h1 data-pagefind-meta="title">
+            {titleLines.length > 0
+              ? titleLines.map((line, index) => (
+                  <span className={styles.titleLineManual} key={`${line}-${index}`}>
+                    {line}
+                  </span>
+                ))
+              : post.title}
+          </h1>
           <p className={styles.summary}>{post.summary}</p>
           <div className={styles.tags}>
             {post.tags.map((tag) => (

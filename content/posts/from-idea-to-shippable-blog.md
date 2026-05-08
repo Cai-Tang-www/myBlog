@@ -6,7 +6,7 @@ tags:
   - Next.js
   - Architecture
   - ContentOps
-featured: true
+featured: false
 ---
 
 多数个人博客失败，不是因为没有灵感，而是因为**发布链路太长**。

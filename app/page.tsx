@@ -1,11 +1,68 @@
 import Link from "next/link";
 import { PostCard } from "@/components/post-card";
-import { getFeaturedPosts } from "@/lib/posts";
-import { phasePlan } from "@/lib/plan";
+import { getAllPosts, getFeaturedPosts, type PostSummary } from "@/lib/posts";
 import styles from "./page.module.css";
+
+type CategoryKey = "agent" | "engineering" | "architecture";
+
+interface CategorySection {
+  id: CategoryKey;
+  phase: string;
+  title: string;
+  note: string;
+  posts: PostSummary[];
+}
+
+const categoryOrder: CategoryKey[] = ["agent", "engineering", "architecture"];
+
+const manualCategoryBySlug: Record<string, CategoryKey> = {
+  "code-agent-hooks-lifecycle-control-layer": "agent",
+  "subagent-from-dag-to-inline": "agent",
+  "skills-agent-brain": "agent",
+  "human-in-loop": "engineering",
+};
+
+function buildCategorySections(posts: PostSummary[]): CategorySection[] {
+  const grouped: Record<CategoryKey, PostSummary[]> = {
+    agent: [],
+    engineering: [],
+    architecture: [],
+  };
+
+  for (const post of posts) {
+    const mapped = manualCategoryBySlug[post.slug] ?? "architecture";
+    grouped[mapped].push(post);
+  }
+
+  return [
+    {
+      id: "agent",
+      phase: "板块 1",
+      title: "Agent开发",
+      note: "聚焦 SubAgent、Skills、Hooks 等核心能力实现与演进。",
+      posts: grouped.agent,
+    },
+    {
+      id: "engineering",
+      phase: "板块 2",
+      title: "工程经验",
+      note: "记录人机协作、交付节奏、复盘方法和团队实践。",
+      posts: grouped.engineering,
+    },
+    {
+      id: "architecture",
+      phase: "板块 3",
+      title: "架构思考",
+      note: "围绕系统边界、能力分层与长期演进做结构化思考。",
+      posts: grouped.architecture,
+    },
+  ];
+}
 
 export default async function Home() {
   const featuredPosts = await getFeaturedPosts(3);
+  const allPosts = await getAllPosts();
+  const categorySections = buildCategorySections(allPosts);
 
   return (
     <div className={styles.page}>
@@ -29,7 +86,7 @@ export default async function Home() {
               进入文章库
             </Link>
             <a href="#plan" className="button-secondary">
-              查看计划套餐
+              查看文章板块
             </a>
           </div>
         </div>
@@ -60,24 +117,29 @@ export default async function Home() {
 
       <section id="plan" className={`container ${styles.phaseSection}`}>
         <div className={styles.sectionHeader}>
-          <h2>计划套餐</h2>
-          <p>按阶段推进结构、内容和自动化，持续可迭代。</p>
+          <h2>文章板块</h2>
+          <p>按主题组织内容，所有条目都可点击进入详情。</p>
         </div>
         <div className={styles.phaseGrid}>
-          {phasePlan.map((item, index) => (
+          {categorySections.map((item, index) => (
             <article
               className={styles.phaseCard}
-              key={item.phase}
+              key={item.id}
               style={{ animationDelay: `${index * 90 + 160}ms` }}
             >
               <p className={styles.phaseMeta}>
                 <span>{item.phase}</span>
-                <span>{item.duration}</span>
+                <span>{item.posts.length} 篇</span>
               </p>
-              <h3>{item.focus}</h3>
-              <ul>
-                {item.deliverables.map((deliverable) => (
-                  <li key={deliverable}>{deliverable}</li>
+              <h3>{item.title}</h3>
+              <p className={styles.phaseIntro}>{item.note}</p>
+              <ul className={styles.phaseLinks}>
+                {item.posts.map((post) => (
+                  <li key={post.slug}>
+                    <Link href={`/blog/${post.slug}`} className={styles.phaseLink}>
+                      {post.title}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </article>

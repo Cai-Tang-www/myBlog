@@ -1,5 +1,8 @@
 ---
 title: 给 Code Agent 做一套 Hooks 系统：从生命周期扩展点，到可演进的控制层
+titleLines:
+  - 给 Code Agent 做一套 Hooks 系统：
+  - 从生命周期扩展点，到可演进的控制层
 summary: Hooks 不是“脚本入口”，而是 Agent 生命周期上的扩展点系统。它让主链路收敛、附加逻辑可治理，并推动系统从“能跑”走向“可演进”。
 publishedAt: 2026-04-25
 tags:
@@ -8,6 +11,7 @@ tags:
   - Runtime
   - Architecture
 featured: true
+featuredOrder: 1
 ---
 
 这篇文章的很多思考，最初来自我读 **Claude Code Book** 里关于 hooks 的那一章，以及我自己在做 code agent 时一路遇到的问题。前者让我第一次把 hooks 这件事从“扩展脚本”理解成“生命周期扩展点系统”，后者则逼着我不断去追问：一个真正可演进的 code agent，到底要不要有 hooks，如果要有，它应该长成什么样。
