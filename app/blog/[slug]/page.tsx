@@ -16,6 +16,27 @@ interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
+function splitTitleForDisplay(title: string): string[] {
+  const normalized = title.trim();
+  if (!normalized) {
+    return [title];
+  }
+
+  const preferredSeparators = ["：", ":"];
+  for (const separator of preferredSeparators) {
+    const index = normalized.indexOf(separator);
+    if (index > 0 && index < normalized.length - 1) {
+      const head = normalized.slice(0, index + 1).trim();
+      const tail = normalized.slice(index + 1).trim();
+      if (head && tail) {
+        return [head, tail];
+      }
+    }
+  }
+
+  return [normalized];
+}
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
@@ -58,6 +79,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const relatedPosts = await getRelatedPosts(post.slug, post.tags, 3);
+  const titleLines = splitTitleForDisplay(post.title);
 
   return (
     <div className={`container ${styles.page}`}>
@@ -68,7 +90,13 @@ export default async function PostPage({ params }: PostPageProps) {
             <span>·</span>
             <span>{post.readingMinutes} 分钟阅读</span>
           </p>
-          <h1 data-pagefind-meta="title">{post.title}</h1>
+          <h1 data-pagefind-meta="title">
+            {titleLines.map((line, index) => (
+              <span className={styles.titleLine} key={`${line}-${index}`}>
+                {line}
+              </span>
+            ))}
+          </h1>
           <p className={styles.summary}>{post.summary}</p>
           <div className={styles.tags}>
             {post.tags.map((tag) => (
