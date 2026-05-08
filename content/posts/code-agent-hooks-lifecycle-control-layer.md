@@ -1,5 +1,8 @@
 ---
 title: 给 Code Agent 做一套 Hooks 系统：从生命周期扩展点，到可演进的控制层
+titleLines:
+  - 给 Code Agent 做一套 Hooks 系统：
+  - 从生命周期扩展点，到可演进的控制层
 summary: Hooks 不是“脚本入口”，而是 Agent 生命周期上的扩展点系统。它让主链路收敛、附加逻辑可治理，并推动系统从“能跑”走向“可演进”。
 publishedAt: 2026-04-25
 tags:
