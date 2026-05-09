@@ -17,7 +17,7 @@ interface CategorySection {
 const categoryOrder: CategoryKey[] = ["agent", "engineering", "architecture"];
 
 const manualCategoryBySlug: Record<string, CategoryKey> = {
-  "code-agent-hooks-lifecycle-control-layer": "agent",
+  "hooks-lifecycle-control-layer": "agent",
   "subagent-from-dag-to-inline": "agent",
   "skills-agent-brain": "agent",
   "human-in-the-loop-neocode": "engineering",
