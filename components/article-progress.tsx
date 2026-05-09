@@ -30,16 +30,20 @@ function findActiveSectionId(sections: PostSection[]): string | null {
 }
 
 export function ArticleProgress({ sections }: ArticleProgressProps) {
-  const [activeId, setActiveId] = useState<string | null>(sections[0]?.id ?? null);
+  const visibleSections = useMemo(
+    () => sections.filter((section) => section.level <= 2),
+    [sections]
+  );
+  const [activeId, setActiveId] = useState<string | null>(visibleSections[0]?.id ?? null);
 
   useEffect(() => {
-    if (sections.length === 0) {
+    if (visibleSections.length === 0) {
       return;
     }
 
     let ticking = false;
     const update = () => {
-      const current = findActiveSectionId(sections);
+      const current = findActiveSectionId(visibleSections);
       setActiveId(current);
       ticking = false;
     };
@@ -59,35 +63,34 @@ export function ArticleProgress({ sections }: ArticleProgressProps) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [sections]);
+  }, [visibleSections]);
 
   const activeIndex = useMemo(() => {
     if (!activeId) {
       return 0;
     }
-    const index = sections.findIndex((section) => section.id === activeId);
+    const index = visibleSections.findIndex((section) => section.id === activeId);
     return index < 0 ? 0 : index;
-  }, [activeId, sections]);
+  }, [activeId, visibleSections]);
 
   const progress = useMemo(() => {
-    if (sections.length <= 1) {
+    if (visibleSections.length <= 1) {
       return 0;
     }
-    return (activeIndex / (sections.length - 1)) * 100;
-  }, [activeIndex, sections.length]);
+    return (activeIndex / (visibleSections.length - 1)) * 100;
+  }, [activeIndex, visibleSections.length]);
 
-  if (sections.length === 0) {
+  if (visibleSections.length === 0) {
     return null;
   }
 
   return (
     <aside className={styles.wrap}>
-      <p className={styles.kicker}>阅读进度</p>
       <div className={styles.rail} aria-hidden="true">
         <span className={styles.progress} style={{ height: `${progress}%` }} />
       </div>
       <ol className={styles.list}>
-        {sections.map((section) => {
+        {visibleSections.map((section) => {
           const isActive = section.id === activeId;
           const levelClass =
             section.level === 1

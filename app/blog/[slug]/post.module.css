@@ -7,8 +7,8 @@
 
 .readingLayout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 18rem;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) 14.8rem;
+  gap: 2.35rem;
   align-items: start;
 }
 

@@ -1,10 +1,9 @@
 .wrap {
   position: sticky;
   top: 5.6rem;
-  border: 1px solid var(--border-soft);
-  border-radius: 0.95rem;
-  background: color-mix(in oklab, var(--surface-card-soft) 78%, #ffffff);
-  padding: 0.85rem 0.8rem 0.8rem 1rem;
+  background: transparent;
+  padding: 0.2rem 0 0.2rem 0.7rem;
+  margin-left: 0.35rem;
 }
 
 .kicker {
@@ -17,9 +16,9 @@
 
 .rail {
   position: absolute;
-  left: 0.62rem;
-  top: 2.05rem;
-  bottom: 0.95rem;
+  left: 0;
+  top: 0.35rem;
+  bottom: 0.35rem;
   width: 2px;
   border-radius: 999px;
   background: color-mix(in oklab, var(--border-soft) 88%, #ffffff);
@@ -34,11 +33,11 @@
 }
 
 .list {
-  margin: 0.55rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.32rem;
+  gap: 0.36rem;
 }
 
 .item button {
@@ -49,14 +48,14 @@
   color: var(--text-muted);
   font-size: 0.85rem;
   line-height: 1.35;
-  padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+  padding: 0.18rem 0.2rem 0.18rem 0.9rem;
   cursor: pointer;
-  border-radius: 0.4rem;
-  transition: color 180ms ease, transform 180ms ease, background-color 180ms ease;
+  border-radius: 0;
+  transition: color 180ms ease, transform 180ms ease;
 }
 
 .level1 button {
-  padding-left: 0.8rem;
+  padding-left: 0.9rem;
 }
 
 .level2 button {
@@ -70,14 +69,13 @@
 }
 
 .item button:hover {
-  color: var(--text-secondary);
+  color: color-mix(in oklab, var(--text-primary) 86%, var(--accent-strong));
 }
 
 .active button {
   color: var(--text-primary);
-  font-weight: 600;
-  transform: scale(1.03);
-  background: color-mix(in oklab, var(--accent-strong) 10%, transparent);
+  font-weight: 700;
+  transform: scale(1.02);
 }
 
 @media (max-width: 1180px) {
