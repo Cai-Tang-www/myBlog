@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 1.45fr 0.95fr;
   gap: 1rem;
-  align-items: stretch;
+  align-items: start;
   position: relative;
   isolation: isolate;
 }
@@ -187,9 +187,9 @@
 }
 
 .profileActions {
-  margin-top: auto;
+  margin-top: 0.6rem;
   margin-left: 0;
-  padding-top: 0.75rem;
+  padding-top: 0.18rem;
   display: flex;
   align-items: center;
   gap: 2rem;
