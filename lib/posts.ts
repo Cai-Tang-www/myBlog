@@ -21,6 +21,11 @@ interface PostFrontmatter {
   draft?: boolean;
 }
 
+export interface PostSection {
+  id: string;
+  title: string;
+}
+
 export interface PostSummary {
   slug: string;
   title: string;
@@ -36,6 +41,7 @@ export interface PostSummary {
 
 export interface PostDetail extends PostSummary {
   contentHtml: string;
+  sections: PostSection[];
 }
 
 function hydrateMarkdownImages(html: string): string {
@@ -79,6 +85,65 @@ function stripMarkdown(source: string): string {
     .replace(/[>#*_~\-]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeHeadingText(source: string): string {
+  return source
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_~]/g, "")
+    .trim();
+}
+
+function extractH2Sections(markdown: string): PostSection[] {
+  const lines = markdown.split(/\r?\n/);
+  const sections: PostSection[] = [];
+  let inFence = false;
+  let index = 0;
+
+  for (const line of lines) {
+    if (/^\s*```/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) {
+      continue;
+    }
+
+    const match = line.match(/^\s*##\s+(.+?)\s*#*\s*$/);
+    if (!match) {
+      continue;
+    }
+
+    const title = normalizeHeadingText(match[1]);
+    if (!title) {
+      continue;
+    }
+
+    index += 1;
+    sections.push({
+      id: `section-${index}`,
+      title,
+    });
+  }
+
+  return sections;
+}
+
+function injectH2Ids(html: string, sections: PostSection[]): string {
+  if (sections.length === 0) {
+    return html;
+  }
+
+  let sectionIndex = 0;
+  return html.replace(/<h2(?![^>]*\bid=)([^>]*)>/gi, (full, attrs: string) => {
+    if (sectionIndex >= sections.length) {
+      return full;
+    }
+    const target = sections[sectionIndex];
+    sectionIndex += 1;
+    return `<h2 id="${target.id}"${attrs}>`;
+  });
 }
 
 function countWords(content: string): number {
@@ -203,9 +268,13 @@ export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
     .use(remarkHtml)
     .process(source.content);
 
+  const sections = extractH2Sections(source.content);
+  const htmlWithSectionAnchors = injectH2Ids(processed.toString(), sections);
+
   return {
     ...toSummary(source.slug, source.frontmatter, source.content),
-    contentHtml: hydrateMarkdownImages(processed.toString()),
+    contentHtml: hydrateMarkdownImages(htmlWithSectionAnchors),
+    sections,
   };
 }
 

@@ -1,0 +1,74 @@
+.wrap {
+  position: sticky;
+  top: 5.6rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 0.95rem;
+  background: color-mix(in oklab, var(--surface-card-soft) 78%, #ffffff);
+  padding: 0.85rem 0.8rem 0.8rem 1rem;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rail {
+  position: absolute;
+  left: 0.62rem;
+  top: 2.05rem;
+  bottom: 0.95rem;
+  width: 2px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--border-soft) 88%, #ffffff);
+}
+
+.progress {
+  display: block;
+  width: 100%;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent-strong) 82%, #4f6ef6);
+  transition: height 220ms ease;
+}
+
+.list {
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.32rem;
+}
+
+.item button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  transition: color 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.item button:hover {
+  color: var(--text-secondary);
+}
+
+.active button {
+  color: var(--text-primary);
+  font-weight: 600;
+  transform: scale(1.03);
+  background: color-mix(in oklab, var(--accent-strong) 10%, transparent);
+}
+
+@media (max-width: 1180px) {
+  .wrap {
+    display: none;
+  }
+}
+

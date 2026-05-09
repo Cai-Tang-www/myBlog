@@ -5,6 +5,13 @@
   gap: 1rem;
 }
 
+.readingLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: 1rem;
+  align-items: start;
+}
+
 .article {
   border: 1px solid var(--border-soft);
   border-radius: 1.2rem;
@@ -183,6 +190,10 @@
 }
 
 @media (max-width: 980px) {
+  .readingLayout {
+    grid-template-columns: 1fr;
+  }
+
   .relatedGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
