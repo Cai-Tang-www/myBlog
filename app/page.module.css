@@ -181,13 +181,12 @@
 }
 
 .profileActions {
-  margin-top: 0.65rem;
+  margin-top: auto;
   margin-left: 0;
-  padding-top: 0.38rem;
-  border-top: 1px dashed color-mix(in oklab, var(--border-strong) 45%, transparent);
+  padding-top: 0.75rem;
   display: flex;
   align-items: center;
-  gap: 0.78rem;
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
@@ -196,27 +195,18 @@
   text-decoration: none;
   color: var(--accent-strong);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
-  font-size: 0.92rem;
-  font-weight: 580;
+  font-size: 0.98rem;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0;
   width: fit-content;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.33rem 0.62rem;
-  border-radius: 999px;
-  border: 1px solid color-mix(in oklab, var(--accent-strong) 36%, var(--border-soft));
-  background: color-mix(in oklab, var(--surface-card-soft) 82%, #ffffff);
-  transition: transform 160ms ease, opacity 160ms ease, background-color 160ms ease,
-    border-color 160ms ease;
+  transition: transform 160ms ease, opacity 160ms ease;
 }
 
 .profileLink:hover,
 .resumeLink:hover {
-  transform: translateY(-1px);
+  transform: translateX(2px);
   opacity: 0.96;
-  background: color-mix(in oklab, var(--accent-strong) 10%, #ffffff);
-  border-color: color-mix(in oklab, var(--accent-strong) 58%, var(--border-soft));
 }
 
 .postSection {
