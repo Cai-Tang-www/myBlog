@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PostCard } from "@/components/post-card";
+import { ProfileActions } from "@/components/profile-actions";
 import { getAllPosts, getFeaturedPosts, type PostSummary } from "@/lib/posts";
 import styles from "./page.module.css";
 
@@ -107,7 +108,9 @@ export default async function Home() {
           <p className={styles.profileIntro}>
             主要做后端工程与系统实现，最近聚焦 Agent Runtime、SubAgent 编排、工具链与可交付工程实践。
           </p>
-          <p className={styles.profileTagline}>野鸡学校 | 东莞留子 | IMSB | 绩点倒数 | 中中混血</p>
+          <p className={styles.profileTagline}>
+            野鸡学校&nbsp; | &nbsp;东莞留子&nbsp; | &nbsp;IMSB&nbsp; | &nbsp;绩点倒数&nbsp; | &nbsp;中中混血
+          </p>
           <div className={styles.stackChips}>
             {["Go", "Gin", "MySQL", "Redis", "Docker", "Agent Runtime"].map((stack) => (
               <span key={stack} className="chip">
@@ -115,14 +118,12 @@ export default async function Home() {
               </span>
             ))}
           </div>
-          <a
-            className={styles.profileLink}
-            href="https://github.com/Cai-Tang-www"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub 主页 →
-          </a>
+          <ProfileActions
+            githubUrl="https://github.com/Cai-Tang-www"
+            className={styles.profileActions}
+            linkClassName={styles.profileLink}
+            resumeClassName={styles.resumeLink}
+          />
         </aside>
       </section>
 
