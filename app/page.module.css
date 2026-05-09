@@ -76,16 +76,14 @@
   font-weight: 700;
 }
 
-.heroLead h1 {
+.heroTypingTitle {
   margin: 0.75rem 0 0;
-  font-size: clamp(2rem, 3vw + 1rem, 3.45rem);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
 }
 
-.heroLead h1 span {
+.heroTypingSvg {
   display: block;
-  color: color-mix(in oklab, var(--accent-strong) 80%, #4c66d8);
+  width: min(100%, 52rem);
+  height: auto;
 }
 
 .subline {

@@ -23,6 +23,22 @@ const manualCategoryBySlug: Record<string, CategoryKey> = {
   "human-in-the-loop-neocode": "engineering",
 };
 
+const heroTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
+  {
+    font: "Noto Sans SC",
+    weight: "700",
+    size: "56",
+    duration: "2600",
+    pause: "1000",
+    color: "1A2748",
+    vCenter: "true",
+    repeat: "true",
+    width: "900",
+    height: "150",
+    lines: "从想法到交付;先回答要解决什么问题",
+  }
+).toString()}`;
+
 function buildCategorySections(posts: PostSummary[]): CategorySection[] {
   const grouped: Record<CategoryKey, PostSummary[]> = {
     agent: [],
@@ -75,9 +91,14 @@ export default async function Home() {
         </div>
         <div className={styles.heroLead}>
           <p className={styles.kicker}>CA1_TANG / ENGINEERING NOTES</p>
-          <h1>
-            从想法到交付
-            <span className={styles.subline}>先回答要解决什么问题</span>
+          <h1 className={styles.heroTypingTitle}>
+            <img
+              className={styles.heroTypingSvg}
+              src={heroTypingSvgUrl}
+              alt="从想法到交付，先回答要解决什么问题"
+              loading="eager"
+              decoding="async"
+            />
           </h1>
           <p className={styles.intro}>
             这是一个偏工程实践的个人博客，聚焦 Agent、工作流、内容系统和长期可维护的技术资产建设。
