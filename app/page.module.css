@@ -80,9 +80,16 @@
   margin: 0.75rem 0 0;
 }
 
-.heroTypingSvg {
+.heroTypingMain {
   display: block;
-  width: min(100%, 52rem);
+  width: min(100%, 50rem);
+  height: auto;
+}
+
+.heroTypingSub {
+  display: block;
+  width: min(100%, 44rem);
+  margin-top: 0.18rem;
   height: auto;
 }
 
