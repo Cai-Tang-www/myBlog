@@ -26,15 +26,15 @@ const manualCategoryBySlug: Record<string, CategoryKey> = {
 const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
   {
     font: "Noto Sans SC",
-    weight: "800",
-    size: "62",
+    weight: "900",
+    size: "72",
     duration: "2400",
     pause: "1000",
     color: "16233F",
     vCenter: "true",
     repeat: "true",
-    width: "860",
-    height: "96",
+    width: "980",
+    height: "112",
     lines: "从想法到交付",
   }
 ).toString()}`;
@@ -42,15 +42,15 @@ const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSe
 const heroSubTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
   {
     font: "Noto Sans SC",
-    weight: "700",
-    size: "38",
+    weight: "820",
+    size: "48",
     duration: "1900",
     pause: "1000",
     color: "4F6EF6",
     vCenter: "true",
     repeat: "true",
-    width: "860",
-    height: "72",
+    width: "960",
+    height: "90",
     lines: "先回答要解决什么问题",
   }
 ).toString()}`;

@@ -82,14 +82,15 @@
 
 .heroTypingMain {
   display: block;
-  width: min(100%, 50rem);
+  width: min(100%, 56rem);
   height: auto;
 }
 
 .heroTypingSub {
   display: block;
-  width: min(100%, 44rem);
-  margin-top: 0.18rem;
+  width: min(100%, 50rem);
+  margin-top: 0.3rem;
+  margin-left: clamp(0.5rem, 1.2vw, 1.2rem);
   height: auto;
 }
 
