@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 1.45fr 0.95fr;
   gap: 1rem;
-  align-items: start;
+  align-items: stretch;
   position: relative;
   isolation: isolate;
 }
@@ -65,6 +65,8 @@
   box-shadow: var(--shadow-soft);
   padding: 1.7rem 1.5rem;
   animation: fade-slide-up 760ms var(--ease-smooth) both;
+  display: flex;
+  flex-direction: column;
 }
 
 .kicker {
@@ -113,7 +115,8 @@
 }
 
 .heroActions {
-  margin-top: 1.25rem;
+  margin-top: auto;
+  padding-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
