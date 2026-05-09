@@ -63,7 +63,7 @@
     color-mix(in oklab, var(--surface-card-soft) 84%, #ffffff)
   );
   box-shadow: var(--shadow-soft);
-  padding: 1.7rem 1.5rem;
+  padding: 1.45rem 1.5rem 1.3rem;
   animation: fade-slide-up 760ms var(--ease-smooth) both;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .heroTypingTitle {
-  margin: 0.75rem 0 0;
+  margin: 0.58rem 0 0;
 }
 
 .heroTypingMain {
@@ -89,7 +89,7 @@
 .heroTypingSub {
   display: block;
   width: min(100%, 50rem);
-  margin-top: 0.3rem;
+  margin-top: 0.08rem;
   margin-left: clamp(0.5rem, 1.2vw, 1.2rem);
   height: auto;
 }
