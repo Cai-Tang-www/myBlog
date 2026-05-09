@@ -185,13 +185,16 @@
   margin-left: 0.22rem;
   display: flex;
   align-items: center;
-  gap: 0.72rem;
+  gap: 1.2rem;
 }
 
 .profileLink {
   text-decoration: none;
   color: var(--accent-strong);
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+  font-size: 0.98rem;
   font-weight: 600;
+  line-height: 1.2;
   width: fit-content;
   transition: transform 160ms ease, opacity 160ms ease;
 }
@@ -205,8 +208,10 @@
   border: none;
   background: transparent;
   color: var(--accent-strong);
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+  font-size: 0.98rem;
   font-weight: 600;
-  font: inherit;
+  line-height: 1.2;
   padding: 0;
   cursor: pointer;
   transition: transform 160ms ease, opacity 160ms ease;
