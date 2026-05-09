@@ -105,7 +105,7 @@ Task 有状态，SubAgent 有状态，Permission 有状态，Tool Call 有状态
 
 后来我把这条线收敛到 inline SubAgent：先让主 Agent 能显式调用一个子任务，子任务在受控边界里执行，再把结构化结果回灌给主 Agent。DAG 和更复杂的编排不一定错，但不应该早于单 Agent 主链路、工具调用、权限边界、状态回灌和测试验证。
 
-我在另一篇文章里专门复盘过这条线：[SubAgent 不是多开几个模型：NeoCode 从 DAG 试错到 inline 最小闭环的复盘](TODO: 放你的 DAG 文章链接)。
+我在另一篇文章里专门复盘过这条线：[SubAgent 不是多开几个模型：NeoCode 从 DAG 试错到 inline 最小闭环的复盘](https://ca1-tang.vercel.app/blog/subagent-from-dag-to-inline)。
 
 这次经历让我意识到：
 
