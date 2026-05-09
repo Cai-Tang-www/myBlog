@@ -3,7 +3,7 @@ title: 从终端工具到 Agent 工程底座：NeoCode 的架构演进复盘
 titleLines:
   - 从终端工具到 Agent 工程底座：
   - NeoCode 的架构演进复盘
-summary: 这篇文章不是 NeoCode 架构文档的复述，而是我在项目中对 Agent 架构的理解：如何通过 Gateway、Runtime、Tools、Provider、Skills、Hooks、HITL 和 SubAgent，把一个 AI 编码工具从“功能能跑”推进到“边界清楚、状态可控、能力可扩展”。
+summary: 好的架构做减法，功能做乘法。是我在项目中对 Agent 架构的理解：如何通过 Gateway、Runtime、Tools、Provider、Skills、Hooks、HITL 和 SubAgent，把一个 AI 编码工具从“功能能跑”推进到“边界清楚、状态可控、能力可扩展”。
 publishedAt: 2026-05-10
 tags:
   - NeoCode

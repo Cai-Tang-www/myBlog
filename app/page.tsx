@@ -27,14 +27,14 @@ const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSe
   {
     font: "Noto Sans SC",
     weight: "900",
-    size: "76",
+    size: "80",
     duration: "1200",
     pause: "2800",
     color: "16233F",
     vCenter: "true",
     repeat: "true",
     width: "1200",
-    height: "152",
+    height: "148",
     lines: "从想法到交付",
   }
 ).toString()}`;
@@ -43,14 +43,14 @@ const heroSubTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSea
   {
     font: "Noto Sans SC",
     weight: "820",
-    size: "52",
+    size: "54",
     duration: "1100",
     pause: "2600",
     color: "4F6EF6",
     vCenter: "true",
     repeat: "true",
     width: "1200",
-    height: "114",
+    height: "104",
     lines: "先回答要解决什么问题",
   }
 ).toString()}`;
