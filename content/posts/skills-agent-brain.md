@@ -1,5 +1,5 @@
 ---
-title: Skill：Agent 的技能系统
+title: Skill：Tool 是手，Skill 是手册
 summary: 好的架构做减法，功能做乘法。结合我在 Agent 项目中的实践，梳理 Skills 的定位、边界和落地方式。
 publishedAt: 2026-04-17
 tags:
@@ -10,11 +10,7 @@ featured: true
 featuredOrder: 3
 ---
 
-关于 Skills ，我认为它其实就是Agent的技能/插件系统。
-
-##  Harness
-
-在谈到Skills之前，我想先提到Harness，之前一直很火的一个概念，名为驭术。
+在谈到Skills之前，我想先提到 **Harness**，之前一直很火的一个概念，名为驭术。
 
 关于Harness更具体的可以看这篇文章：[Codex中的工程技术](https://openai.com/zh-Hans-CN/index/harness-engineering/)
 
@@ -29,13 +25,29 @@ Skill = Agent 执行任务时使用的能力提示包
 
 Skill存在于Agent之中，在需要时被调用/启用。
 
+
+
+在做 NeoCode 的过程中，我一开始以为 Code Agent 最重要的是“工具能力”：能读文件、能搜索代码、能执行命令、能修改文件。
+
+但后来我发现，模型“会调用工具”和“会稳定完成某类任务”之间，还有一段很长的距离。
+
+比如同样是代码 Review，Agent 可能会读文件、会 grep、会跑测试，但它不一定知道 Review 的重点是什么：是架构边界？错误处理？并发风险？安全问题？还是 API 兼容性？
+
+如果每次都让用户在 prompt 里重新解释一遍流程，这件事既重复，也不稳定。
+
+所以我后来对 Skill 的理解变成一句话：
+
+> Tool 是手，Skill 是手册。
+
+Tool 解决“Agent 能做什么动作”，Skill 解决“Agent 做某类任务时应该怎么做”。
+
 ## 技能系统
 
 Claude Code的技能系统是一个多层次的扩展机制。它允许用户通过 Markdown 文件定义可复用的 prompt 模板，也允许开发者通过 TypeScript 代码注册编译时内置的技能。整个系统的设计目标是：**零配置可用，自定义配置强大**。
 
-- ## 一、为什么需要 Skill
+- ## 一、为什么Agent需要 Skill
 
-  ### 1. 最开始为什么会觉得 code agent 需要 Skill？
+  ### 最开始为什么会觉得 code agent 需要 Skill？
 
   最开始的原因很简单：我发现模型“会用工具”和“会稳定完成某类任务”之间还有很大距离。
 
@@ -53,7 +65,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
 
   ------
 
-  ### 2. Agent “会调用工具”和“会完成任务”之间差了什么？
+  ### Agent “会调用工具”和“会完成任务”之间差了什么？
 
   差的是任务策略。
 
@@ -98,7 +110,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
 
   ------
 
-  ### 3. Skill 希望解决的核心问题是什么？
+  ### Skill 希望解决的核心问题是什么？
 
   我希望 Skill 解决四个问题。
 
@@ -116,9 +128,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
 
   ------
 
-  ## 二、Skill 到底是什么
-
-  ### 4. 一句话定义 Skill
+  ## 二、Skill 的定位：任务 SOP，而不是插件
 
   我会这样定义：
 
@@ -130,21 +140,21 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
 
   它不是插件本身，也不是工具本身，而是一种**结构化、可复用、可管理的任务提示能力**。
 
-  ------
+  ---
 
-  ### 5. Skill 在 NeoCode 里更像什么？
+  ### Skill 在 NeoCode 里更像什么？
 
   在 NeoCode 里，我觉得 Skill 更像：
 
   ```
   任务 SOP + 上下文增强模块 + 专家经验包
   ```
-
+  
   它不应该直接等同于插件。因为插件通常意味着能注册新能力、执行代码、改变系统行为；但 Skill 的第一定位应该是影响模型上下文，而不是改 runtime。
 
   也不只是专家角色。
    “你是资深 Go 工程师”这种角色设定太虚。Skill 应该更偏 SOP：
-
+  
   ```
   你要如何分析？
   先看什么？
@@ -152,12 +162,12 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   输出什么格式？
   遇到信息不足怎么处理？
   ```
-
+  
   所以我会说：**Skill 是可激活的任务 SOP，而不是简单角色扮演。**
 
   ------
 
-  ### 6. Skill 和普通 prompt 最大区别是什么？
+  ### Skill 和普通 prompt 最大区别是什么？
 
   普通 prompt 是一次性的，Skill 是可管理的。
 
@@ -170,14 +180,14 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   4. Skill 可以会话级激活，而不是每轮手动复制；
   5. Skill 可以被 runtime 注入，而不是靠用户记得粘贴。
   ```
-
+  
   普通 prompt 更像临时口头要求；Skill 更像团队沉淀下来的任务手册。
 
   ------
 
   ## 三、Skill 和 Tool / Harness / Hook 的边界
 
-  ### 7. Skill 和 Tool 的区别是什么？
+  ###  Skill 和 Tool 的区别是什么？
 
   Tool 是动作能力，Skill 是使用能力的方法。
 
@@ -187,21 +197,21 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   Tool：read_file，可以读文件
   Skill：做 Go Review 时，应该先读 go.mod，再读核心 package，再看错误处理
   ```
-
+  
   Tool 负责“能做什么”，Skill 负责“怎么做得更好”。
 
   Skill 不应该直接执行动作。
    它可以建议模型优先使用某些工具，但不能自己绕过 runtime 去执行，也不能改变权限。
-
+  
   一句话：
 
   ```
   Tool 是手，Skill 是手册。
   ```
-
+  
   ------
 
-  ### 8. Skill 和 Harness 的关系是什么？
+  ### Skill 和 Harness 的关系是什么？
 
   我会这样说：
 
@@ -216,7 +226,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   验证结果
   评测 agent
   ```
-
+  
   Skill 更偏 agent 内部能力：
 
   ```
@@ -225,7 +235,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   输出规范
   工具使用建议
   ```
-
+  
   所以关系可以是：
 
   ```
@@ -233,7 +243,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   Skill 作为运行条件之一被加载；
   Agent 在该 Skill 指导下执行任务。
   ```
-
+  
   比如做一个 Go 项目修复 Harness，它可以要求加载：
 
   ```
@@ -241,10 +251,10 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   go-test skill
   issue-writing skill
   ```
-
+  
   ------
 
-  ### 9. Skill 和 Hook 的区别是什么？
+  ### Skill 和 Hook 的区别是什么？
 
   Hook 是生命周期扩展点，Skill 是模型上下文策略。
 
@@ -255,7 +265,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   after_tool_result
   before_completion_decision
   ```
-
+  
   它可以观察、阻断、补充事件、生成通知。
 
   Skill 不在生命周期里执行，它只是被注入到模型上下文，影响模型行为。
@@ -266,20 +276,29 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   Skill 告诉模型：做安全 review 时要关注敏感文件；
   Hook 在 before_tool_call 阶段阻止模型访问超出范围的文件。
   ```
-
+  
   也就是说：
 
   ```
   Skill 是软约束；
   Hook 是运行时硬边界或扩展点。
   ```
-
+  
   ------
 
-  ### 10. Skill 不应该做什么？
-
+  | 能力       | 解决的问题                         | 在 Agent中的位置        | 不应该做什么              |
+  | ---------- | ---------------------------------- | ----------------------- | ------------------------- |
+  | Tool       | Agent 能执行什么动作               | 动作执行层              | 不负责决定任务策略        |
+  | Skill      | 某类任务应该怎么做                 | 任务 SOP / 上下文策略层 | 不新增工具，不绕过权限    |
+  | Hook       | 生命周期节点上如何观察、拦截、增强 | Runtime 扩展点层        | 不替代主循环和权限系统    |
+  | Permission | 某个动作能不能执行                 | 安全授权层              | 不负责生成任务流程        |
+  | MCP        | 接入外部工具和服务                 | 外部能力接入层          | 不负责沉淀任务经验        |
+  | Harness    | 如何组织任务运行和验证             | 任务运行 / 评测外壳     | 不直接替代 Agent 内部策略 |
+  
+  ### Skill 不应该做什么？
+  
   Skill 不应该做这些事：
-
+  
   ```
   1. 不应该绕过权限；
   2. 不应该注册真实工具；
@@ -289,19 +308,19 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   6. 不应该成为“提示词里的后门”；
   7. 不应该让模型以为自己拥有未暴露的能力。
   ```
-
+  
   尤其要注意：Skill 不能说“你可以直接修改任意文件”这种话。真正能不能修改文件，要由工具暴露和 permission 决定。
-
+  
   Skill 只能影响模型选择，不应该改变系统权限。
-
+  
   ------
-
+  
   ## 四、Skill 文件应该怎么设计
-
-  ### 11. `SKILL.md` 最重要的字段有哪些？
-
+  
+  ### `SKILL.md` 最重要的字段有哪些？
+  
   我觉得 metadata 里至少要有：
-
+  
   ```
   id: go-review
   name: Go Review
@@ -317,9 +336,9 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
     avoid:
       - filesystem_write_file
   ```
-
+  
   核心字段是：
-
+  
   ```
   id：唯一标识
   name：人类可读名称
@@ -329,7 +348,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   source：来源
   tool_hints：工具使用建议
   ```
-
+  
   后续还可以有：
 
   ```
@@ -338,15 +357,15 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   risk_level
   compatible_modes
   ```
-
+  
   但第一版不需要太复杂。
-
+  
   ------
-
-  ### 12. 正文应该包含哪些 section？
-
+  
+  ### 正文应该包含哪些 section？
+  
   我建议正文分成这些：
-
+  
   ```
   # Instruction
   这个 skill 的核心行为要求。
@@ -369,7 +388,7 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   # References
   可选参考资料。
   ```
-
+  
   其中最重要的是：
 
   ```
@@ -378,62 +397,94 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   Constraints
   Output Format
   ```
-
+  
   因为 Skill 不是知识库文章，而是要指导模型执行任务。
-
+  
   ------
-
-  ### 13. Skill 应该写得像角色设定，还是任务 SOP？
-
-  我更倾向任务 SOP。
-
+  
+  ### Skill 应该写得像角色设定，还是任务 SOP？
+  
   角色设定可以有，但不能只停留在角色设定。
-
+  
   差的写法是：
-
+  
   ```
   你是资深 Go Reviewer，请认真审查代码。
   ```
-
+  
   好的写法是：
+  
+  一个 NeoCode 里的 Skill 示例：Issue 写作 Skill
+  
+  在 NeoCode 项目里，我最早明显感受到 Skill 价值的场景，是写 GitHub Issue。
+  
+  一个好的工程 Issue 不只是标题和一句需求，它应该包含：
+  
+  - Background
+  - Problem
+  - Goal
+  - Non-goal
+  - Proposed Design
+  - Acceptance Criteria
+  - Test Plan
+  - Risks
+  
+  如果每次都让用户手写这些结构，成本很高；如果只靠模型自由发挥，输出又很不稳定。
+  
+  所以 Issue Writing Skill 的价值，就是把“如何写一个工程化 Issue”的经验沉淀下来。它不需要新增任何工具，只需要告诉 Agent：
+  
+  1. 先明确用户目标；
+  2. 区分当前问题和预期行为；
+  3. 写清楚验收标准；
+  4. 对未完成能力保持边界；
+  5. 最后输出可直接复制到 GitHub 的 Markdown。
 
-  ```
-  执行 Go Review 时：
-  1. 先确认模块边界和入口；
-  2. 再检查错误处理、资源释放、并发安全；
-  3. 对每个发现给出 severity、证据、影响和修复建议；
-  4. 不要在没有证据时输出猜测。
-  ```
+  这就是 Skill 的典型价值：它不是增加 Agent 的手，而是让 Agent 更会用已有的手。
 
   所以 Skill 应该是：
-
+  
   ```
   少一点“你是谁”
   多一点“你怎么做”
   ```
-
+  
   ------
-
+  
   ## 五、Skill 加载引擎怎么做
+  
+  ### Skill 应该从哪里加载？
 
-  ### 14. Skill 应该从哪里加载？
-
-  第一版我支持：
-
+  ```mermaid
+  flowchart LR
+      FS[Skill Files<br/>~/.neocode/skills / project skills] --> L[Loader<br/>扫描与解析]
+      L --> R[Registry<br/>索引与查询]
+      R --> F[Filter<br/>按 session / workspace / scope 过滤]
+      F --> C[Context Builder<br/>注入当前会话上下文]
+      C --> A[Agent Runtime]
   ```
-  ~/.neocode/skills/
-  ~/.codex/skills/ fallback
+  
+  ------
+  
+  ### Loader / Registry / Filter 三层怎么理解？
+  
+  这三层边界是清楚的。
+  
   ```
-
-  这适合用户个人配置。
-
-  后续我觉得应该加项目级：
-
+  Loader：负责从文件系统扫描、读取、解析 SKILL.md
+  Registry：负责把解析后的 skill 放进内存索引
+  Filter：负责按当前 session/workspace/source/scope 决定可见哪些 skill
   ```
-  .neocode/skills/
-  .agents/skills/
+  
+  换句话说：
+  
   ```
-
+  Loader 关心“有什么”
+  Registry 关心“怎么查”
+  Filter 关心“当前能不能用”
+  ```
+  
+  这样以后加项目级、远程 skill、builtin skill 都比较自然。
+  
   但项目级 Skill 要谨慎，因为它可能来自仓库，存在 prompt injection 风险。
    所以项目级 Skill 必须配合 trust workspace：
 
@@ -441,9 +492,9 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   未信任 workspace：不自动加载项目 skill
   已信任 workspace：允许加载
   ```
-
+  
   加载顺序可以是：
-
+  
   ```
   builtin
   user
@@ -453,35 +504,13 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   但优先级要定义清楚。
 
   ------
-
-  ### 15. Loader / Registry / Filter 三层怎么理解？
-
-  这三层边界是清楚的。
-
-  ```
-  Loader：负责从文件系统扫描、读取、解析 SKILL.md
-  Registry：负责把解析后的 skill 放进内存索引
-  Filter：负责按当前 session/workspace/source/scope 决定可见哪些 skill
-  ```
-
-  换句话说：
-
-  ```
-  Loader 关心“有什么”
-  Registry 关心“怎么查”
-  Filter 关心“当前能不能用”
-  ```
-
-  这样以后加项目级、远程 skill、builtin skill 都比较自然。
-
-  ------
-
-  ### 16. 加载失败怎么处理？
-
-  我倾向于：**单个 Skill 失败不影响整体加载**。
-
+  
+  ### 加载失败怎么处理？
+  
+  **单个 Skill 失败不影响整体加载**。
+  
   比如：
-
+  
   ```
   metadata 无效
   内容为空
@@ -493,35 +522,35 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
 
   但是 id 冲突要 fail-closed。
    因为如果两个 Skill 都叫 `go-review`，系统无法确定用户到底启用了哪个，继续加载会有安全和可预测性问题。
-
+  
   所以规则是：
-
+  
   ```
   普通解析失败：跳过该 skill，记录 LoadIssue；
   id 冲突：冲突项全部不可用；
   整体 registry 不因为单个 skill 崩溃。
   ```
-
+  
   ------
-
+  
   ## 六、Skill 怎么被使用
-
-  ### 17. Skill 应该自动启用，还是用户手动启用？
-
+  
+  ### Skill 应该自动启用，还是用户手动启用？
+  
   第一版我更支持手动启用：
-
+  
   ```
   /skill use <id>
   /skill off <id>
   /skill active
   ```
-
+  
   好处是可控。
-
+  
   Skill 会影响模型上下文，如果自动启用太激进，用户可能不知道为什么模型突然按某个 SOP 做事。
-
+  
   手动启用的优点：
-
+  
   ```
   1. 用户明确知道当前激活了什么；
   2. 避免错误匹配；
@@ -533,20 +562,20 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   后续可以做“推荐启用”，但不要一开始就强自动。
 
   ------
-
-  ### 18. Skill 激活后如何影响模型？
-
+  
+  ### Skill 激活后如何影响模型？
+  
   当前设计是 Runtime 在每轮 context 构建时注入一个 `Skills` section，包括：
-
+  
   ```
   instruction
   tool_hints
   references
   examples
   ```
-
+  
   这个方式优点是简单、可解释、provider 无关。
-
+  
   缺点是：
 
   ```
@@ -555,9 +584,9 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   3. Skill 太长会污染 prompt；
   4. 模型可能过度服从 Skill，而忽略当前用户请求。
   ```
-
+  
   所以需要限制：
-
+  
   ```
   最大注入长度
   Skill 数量上限
@@ -565,13 +594,13 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   优先级
   摘要注入
   ```
-
+  
   我的倾向是：**Skill 激活后只注入必要部分，不要把整个 SKILL.md 原文全塞进去。**
-
+  
   ------
-
-  ### 19. `tool_hints` 应该有多大权力？
-
+  
+  ### `tool_hints` 应该有多大权力？
+  
   `tool_hints` 只能是提示，不能改变权限。
 
   也就是说它可以做：
@@ -590,11 +619,11 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   暴露隐藏工具
   自动授权高危工具
   ```
-
+  
   当前文档里写“只调整已暴露工具排序，不新增工具、不改变权限决策”，这个边界我认同。
-
+  
   一句话：
-
+  
   ```
   tool_hints 影响模型选择，不影响 runtime 权限。
   ```
@@ -602,12 +631,12 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   ------
 
   ## 七、Skill 的未来演进
-
-  ### 20. 希望 Skill 后续怎么演进？
-
+  
+  ### 希望 Skill 后续怎么演进？
+  
   我希望分阶段演进。
 
-  第一阶段：**本地用户 Skill**。
+  第一阶段：**本地用户 Skill**。(已实现)
 
   ```
   ~/.neocode/skills/
@@ -615,39 +644,39 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   注入上下文
   支持 tool_hints
   ```
-
-  第二阶段：**项目级 Skill**。
-
+  
+  第二阶段：**项目级 Skill**。（已实现）
+  
   ```
   .neocode/skills/
   需要 workspace trust
   适合团队共享 SOP
   ```
-
+  
   比如一个项目可以自带：
-
+  
   ```
   project-architecture-review
   project-test-guideline
   project-release-process
   ```
-
-  第三阶段：**Skill 与 Harness 联动**。
-
+  
+  第三阶段：**Skill 与 Harness 联动**。（未开发）
+  
   Harness 可以声明：
-
+  
   ```
   本任务需要 go-test skill
   本评测需要 issue-writing skill
   本修复任务需要 debugging skill
   ```
-
+  
   这样任务运行和能力注入就能组合起来。
-
+  
   第四阶段：**Skill 质量评测**。
-
+  
   Skill 不能只是写出来，还要知道有没有用。可以统计：
-
+  
   ```
   启用次数
   任务成功率
@@ -666,15 +695,15 @@ Claude Code的技能系统是一个多层次的扩展机制。它允许用户通
   是否诱导模型泄露信息？
   版本升级是否破坏行为？
   ```
-
+  
   所以 marketplace 必须建立在签名、版本、权限、trust 之上。
-
+  
   ------
-
+  
   # 总结
-
+  
   > Tool 让 Agent 能做事，Hook 让 Runtime 能被扩展，Harness 让任务能被运行和验证，而 Skill 让 Agent 在某类任务上“知道该怎么做”。它不是执行层，不是权限层，也不是评测层，而是把可复用的任务经验、流程约束和输出规范沉淀成可激活的上下文能力。
-
+  
   或者更短一点：
-
+  
   > Skill 的价值不是给 Agent 增加更多手，而是让 Agent 更会用已有的手。
