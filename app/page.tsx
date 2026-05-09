@@ -19,7 +19,7 @@ const manualCategoryBySlug: Record<string, CategoryKey> = {
   "code-agent-hooks-lifecycle-control-layer": "agent",
   "subagent-from-dag-to-inline": "agent",
   "skills-agent-brain": "agent",
-  "human-in-loop": "engineering",
+  "human-in-the-loop-neocode": "engineering",
 };
 
 function buildCategorySections(posts: PostSummary[]): CategorySection[] {
@@ -91,13 +91,38 @@ export default async function Home() {
           </div>
         </div>
         <aside className={styles.heroPanel}>
-          <h2>当前站点能力</h2>
-          <ul>
-            <li>Next.js App Router + SSG 静态导出</li>
-            <li>Markdown 内容结构 + 博客路由</li>
-            <li>Pagefind 全站搜索</li>
-            <li>giscus 评论与自动化部署</li>
-          </ul>
+          <div className={styles.profileHead}>
+            <img
+              src="/images/avatar-ca1.png"
+              alt="CA1_TANG avatar"
+              className={styles.profileAvatar}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className={styles.profileTitleWrap}>
+              <h2>CA1_TANG</h2>
+              <p className={styles.profileSubtitle}>Go Backend × Agent Engineering</p>
+            </div>
+          </div>
+          <p className={styles.profileIntro}>
+            主要做后端工程与系统实现，最近聚焦 Agent Runtime、SubAgent 编排、工具链与可交付工程实践。
+          </p>
+          <p className={styles.profileTagline}>野鸡学校 | 东莞留子 | IMSB | 绩点倒数 | 中中混血</p>
+          <div className={styles.stackChips}>
+            {["Go", "Gin", "MySQL", "Redis", "Docker", "Agent Runtime"].map((stack) => (
+              <span key={stack} className="chip">
+                {stack}
+              </span>
+            ))}
+          </div>
+          <a
+            className={styles.profileLink}
+            href="https://github.com/Cai-Tang-www"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub 主页 →
+          </a>
         </aside>
       </section>
 
