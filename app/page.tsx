@@ -31,10 +31,10 @@ const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSe
     duration: "1200",
     pause: "2800",
     color: "16233F",
-    vCenter: "false",
+    vCenter: "true",
     repeat: "true",
     width: "1200",
-    height: "94",
+    height: "140",
     lines: "从想法到交付",
   }
 ).toString()}`;
@@ -47,10 +47,10 @@ const heroSubTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSea
     duration: "1100",
     pause: "2600",
     color: "4F6EF6",
-    vCenter: "false",
+    vCenter: "true",
     repeat: "true",
     width: "1200",
-    height: "72",
+    height: "104",
     lines: "先回答要解决什么问题",
   }
 ).toString()}`;
