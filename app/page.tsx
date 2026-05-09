@@ -23,6 +23,38 @@ const manualCategoryBySlug: Record<string, CategoryKey> = {
   "human-in-the-loop-neocode": "engineering",
 };
 
+const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
+  {
+    font: "Noto Sans SC",
+    weight: "900",
+    size: "80",
+    duration: "1200",
+    pause: "2800",
+    color: "16233F",
+    vCenter: "true",
+    repeat: "true",
+    width: "1200",
+    height: "148",
+    lines: "从想法到交付",
+  }
+).toString()}`;
+
+const heroSubTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
+  {
+    font: "Noto Sans SC",
+    weight: "820",
+    size: "54",
+    duration: "1100",
+    pause: "2600",
+    color: "4F6EF6",
+    vCenter: "true",
+    repeat: "true",
+    width: "1200",
+    height: "104",
+    lines: "先回答要解决什么问题",
+  }
+).toString()}`;
+
 function buildCategorySections(posts: PostSummary[]): CategorySection[] {
   const grouped: Record<CategoryKey, PostSummary[]> = {
     agent: [],
@@ -75,9 +107,21 @@ export default async function Home() {
         </div>
         <div className={styles.heroLead}>
           <p className={styles.kicker}>CA1_TANG / ENGINEERING NOTES</p>
-          <h1>
-            从想法到交付
-            <span className={styles.subline}>先回答要解决什么问题</span>
+          <h1 className={styles.heroTypingTitle}>
+            <img
+              className={styles.heroTypingMain}
+              src={heroMainTypingSvgUrl}
+              alt="从想法到交付"
+              loading="eager"
+              decoding="async"
+            />
+            <img
+              className={styles.heroTypingSub}
+              src={heroSubTypingSvgUrl}
+              alt="先回答要解决什么问题"
+              loading="eager"
+              decoding="async"
+            />
           </h1>
           <p className={styles.intro}>
             这是一个偏工程实践的个人博客，聚焦 Agent、工作流、内容系统和长期可维护的技术资产建设。

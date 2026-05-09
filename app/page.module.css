@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 1.45fr 0.95fr;
   gap: 1rem;
-  align-items: stretch;
+  align-items: start;
   position: relative;
   isolation: isolate;
 }
@@ -76,16 +76,22 @@
   font-weight: 700;
 }
 
-.heroLead h1 {
-  margin: 0.75rem 0 0;
-  font-size: clamp(2rem, 3vw + 1rem, 3.45rem);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
+.heroTypingTitle {
+  margin: 0.62rem 0 0;
 }
 
-.heroLead h1 span {
+.heroTypingMain {
   display: block;
-  color: color-mix(in oklab, var(--accent-strong) 80%, #4c66d8);
+  width: min(100%, 56rem);
+  height: auto;
+}
+
+.heroTypingSub {
+  display: block;
+  width: min(100%, 50rem);
+  margin-top: 0;
+  margin-left: clamp(0.5rem, 1.2vw, 1.2rem);
+  height: auto;
 }
 
 .subline {
@@ -100,7 +106,7 @@
 }
 
 .intro {
-  margin: 1rem 0 0;
+  margin: 0.28rem 0 0;
   max-width: 56ch;
   color: var(--text-secondary);
   line-height: 1.75;
@@ -181,45 +187,32 @@
 }
 
 .profileActions {
-  margin-top: 0.45rem;
-  margin-left: 0.22rem;
+  margin-top: 0.6rem;
+  margin-left: 0;
+  padding-top: 0.18rem;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-.profileLink {
+.profileLink,
+.resumeLink {
   text-decoration: none;
   color: var(--accent-strong);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.2;
+  letter-spacing: 0;
   width: fit-content;
   transition: transform 160ms ease, opacity 160ms ease;
 }
 
-.profileLink:hover {
-  transform: translateX(2px);
-  opacity: 0.92;
-}
-
-.resumeLink {
-  border: none;
-  background: transparent;
-  color: var(--accent-strong);
-  font-family: var(--font-sans), "Segoe UI", sans-serif;
-  font-size: 0.98rem;
-  font-weight: 600;
-  line-height: 1.2;
-  padding: 0;
-  cursor: pointer;
-  transition: transform 160ms ease, opacity 160ms ease;
-}
-
+.profileLink:hover,
 .resumeLink:hover {
   transform: translateX(2px);
-  opacity: 0.92;
+  opacity: 0.96;
 }
 
 .postSection {

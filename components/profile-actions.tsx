@@ -18,14 +18,16 @@ export function ProfileActions({
       <a className={linkClassName} href={githubUrl} target="_blank" rel="noreferrer">
         GitHub 主页 →
       </a>
-      <button
-        type="button"
+      <a
+        href="#"
         className={resumeClassName}
-        onClick={() => window.alert("我还没写好...")}
+        onClick={(event) => {
+          event.preventDefault();
+          window.alert("我还没写好...");
+        }}
       >
         看看简历 →
-      </button>
+      </a>
     </div>
   );
 }
-
