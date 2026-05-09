@@ -7,7 +7,7 @@ tags:
   - Skills
   - Engineering
 featured: true
-featuredOrder: 3
+featuredOrder: 4
 ---
 
 在谈到Skills之前，我想先提到 **Harness**，之前一直很火的一个概念，名为驭术。
