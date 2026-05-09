@@ -55,6 +55,20 @@
   transition: color 180ms ease, transform 180ms ease, background-color 180ms ease;
 }
 
+.level1 button {
+  padding-left: 0.8rem;
+}
+
+.level2 button {
+  padding-left: 1.2rem;
+  font-size: 0.82rem;
+}
+
+.level3 button {
+  padding-left: 1.6rem;
+  font-size: 0.79rem;
+}
+
 .item button:hover {
   color: var(--text-secondary);
 }
@@ -71,4 +85,3 @@
     display: none;
   }
 }
-

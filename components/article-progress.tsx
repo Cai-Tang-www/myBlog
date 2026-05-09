@@ -89,8 +89,17 @@ export function ArticleProgress({ sections }: ArticleProgressProps) {
       <ol className={styles.list}>
         {sections.map((section) => {
           const isActive = section.id === activeId;
+          const levelClass =
+            section.level === 1
+              ? styles.level1
+              : section.level === 2
+                ? styles.level2
+                : styles.level3;
           return (
-            <li key={section.id} className={`${styles.item} ${isActive ? styles.active : ""}`}>
+            <li
+              key={section.id}
+              className={`${styles.item} ${levelClass} ${isActive ? styles.active : ""}`}
+            >
               <button
                 type="button"
                 onClick={() => {
@@ -111,4 +120,3 @@ export function ArticleProgress({ sections }: ArticleProgressProps) {
     </aside>
   );
 }
-
