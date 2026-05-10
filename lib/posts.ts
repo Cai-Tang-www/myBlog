@@ -21,6 +21,12 @@ interface PostFrontmatter {
   draft?: boolean;
 }
 
+export interface PostSection {
+  id: string;
+  title: string;
+  level: 1 | 2 | 3;
+}
+
 export interface PostSummary {
   slug: string;
   title: string;
@@ -36,6 +42,7 @@ export interface PostSummary {
 
 export interface PostDetail extends PostSummary {
   contentHtml: string;
+  sections: PostSection[];
 }
 
 function hydrateMarkdownImages(html: string): string {
@@ -79,6 +86,76 @@ function stripMarkdown(source: string): string {
     .replace(/[>#*_~\-]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeHeadingText(source: string): string {
+  return source
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_~]/g, "")
+    .trim();
+}
+
+function extractHeadingSections(markdown: string): PostSection[] {
+  const lines = markdown.split(/\r?\n/);
+  const sections: PostSection[] = [];
+  let inFence = false;
+  let index = 0;
+
+  for (const line of lines) {
+    if (/^\s*```/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) {
+      continue;
+    }
+
+    const match = line.match(/^\s*(#{1,3})\s+(.+?)\s*#*\s*$/);
+    if (!match) {
+      continue;
+    }
+
+    const level = match[1].length as 1 | 2 | 3;
+    const title = normalizeHeadingText(match[2]);
+    if (!title) {
+      continue;
+    }
+
+    index += 1;
+    sections.push({
+      id: `section-${index}`,
+      title,
+      level,
+    });
+  }
+
+  return sections;
+}
+
+function injectHeadingIds(html: string, sections: PostSection[]): string {
+  if (sections.length === 0) {
+    return html;
+  }
+
+  let sectionIndex = 0;
+  return html.replace(/<h([1-3])(?![^>]*\bid=)([^>]*)>/gi, (full, level, attrs: string) => {
+    if (sectionIndex >= sections.length) {
+      return full;
+    }
+
+    const matchedLevel = Number(level) as 1 | 2 | 3;
+    while (sectionIndex < sections.length && sections[sectionIndex].level !== matchedLevel) {
+      sectionIndex += 1;
+    }
+    if (sectionIndex >= sections.length) {
+      return full;
+    }
+
+    const target = sections[sectionIndex];
+    sectionIndex += 1;
+    return `<h${level} id="${target.id}"${attrs}>`;
+  });
 }
 
 function countWords(content: string): number {
@@ -203,9 +280,13 @@ export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
     .use(remarkHtml)
     .process(source.content);
 
+  const sections = extractHeadingSections(source.content);
+  const htmlWithSectionAnchors = injectHeadingIds(processed.toString(), sections);
+
   return {
     ...toSummary(source.slug, source.frontmatter, source.content),
-    contentHtml: hydrateMarkdownImages(processed.toString()),
+    contentHtml: hydrateMarkdownImages(htmlWithSectionAnchors),
+    sections,
   };
 }
 

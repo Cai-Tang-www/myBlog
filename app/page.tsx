@@ -27,14 +27,14 @@ const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSe
   {
     font: "Noto Sans SC",
     weight: "900",
-    size: "80",
+    size: "86",
     duration: "1200",
     pause: "2800",
     color: "16233F",
     vCenter: "true",
     repeat: "true",
     width: "1200",
-    height: "148",
+    height: "164",
     lines: "从想法到交付",
   }
 ).toString()}`;
@@ -43,14 +43,14 @@ const heroSubTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSea
   {
     font: "Noto Sans SC",
     weight: "820",
-    size: "54",
+    size: "58",
     duration: "1100",
     pause: "2600",
     color: "4F6EF6",
     vCenter: "true",
     repeat: "true",
     width: "1200",
-    height: "104",
+    height: "122",
     lines: "先回答要解决什么问题",
   }
 ).toString()}`;
@@ -123,9 +123,6 @@ export default async function Home() {
               decoding="async"
             />
           </h1>
-          <p className={styles.intro}>
-            这是一个偏工程实践的个人博客，聚焦 Agent、工作流、内容系统和长期可维护的技术资产建设。
-          </p>
           <div className={styles.heroActions}>
             <Link href="/blog" className="button-primary">
               进入文章库

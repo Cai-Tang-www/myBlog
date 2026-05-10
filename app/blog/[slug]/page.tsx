@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Comments } from "@/components/comments";
 import { MarkdownContent } from "@/components/markdown-content";
 import { PostCard } from "@/components/post-card";
+import { ArticleProgress } from "@/components/article-progress";
 import {
   formatPublishedAt,
   getAllPosts,
@@ -62,51 +63,55 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className={`container ${styles.page}`}>
-      <article className={styles.article} data-pagefind-body>
-        <header className={styles.header}>
-          <p className={styles.meta}>
-            <span>{formatPublishedAt(post.publishedAt)}</span>
-            <span>·</span>
-            <span>{post.readingMinutes} 分钟阅读</span>
-          </p>
-          <h1 data-pagefind-meta="title">
-            {titleLines.length > 0
-              ? titleLines.map((line, index) => (
-                  <span className={styles.titleLineManual} key={`${line}-${index}`}>
-                    {line}
-                  </span>
-                ))
-              : post.title}
-          </h1>
-          <p className={styles.summary}>{post.summary}</p>
-          <div className={styles.tags}>
-            {post.tags.map((tag) => (
-              <span key={tag} className="chip" data-pagefind-filter={`tag:${tag}`}>
-                {tag}
-              </span>
-            ))}
+      <div className={styles.readingLayout}>
+        <article className={styles.article} data-pagefind-body>
+          <header className={styles.header}>
+            <p className={styles.meta}>
+              <span>{formatPublishedAt(post.publishedAt)}</span>
+              <span>·</span>
+              <span>{post.readingMinutes} 分钟阅读</span>
+            </p>
+            <h1 data-pagefind-meta="title">
+              {titleLines.length > 0
+                ? titleLines.map((line, index) => (
+                    <span className={styles.titleLineManual} key={`${line}-${index}`}>
+                      {line}
+                    </span>
+                  ))
+                : post.title}
+            </h1>
+            <p className={styles.summary}>{post.summary}</p>
+            <div className={styles.tags}>
+              {post.tags.map((tag) => (
+                <span key={tag} className="chip" data-pagefind-filter={`tag:${tag}`}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            {post.cover ? (
+              <img
+                className={styles.heroImage}
+                src={post.cover}
+                alt={post.title}
+                loading="eager"
+                decoding="async"
+              />
+            ) : null}
+          </header>
+
+          <MarkdownContent className={styles.content} html={post.contentHtml} />
+
+          <div className={styles.backArea}>
+            <Link href="/blog" className="button-secondary">
+              返回文章列表
+            </Link>
           </div>
-          {post.cover ? (
-            <img
-              className={styles.heroImage}
-              src={post.cover}
-              alt={post.title}
-              loading="eager"
-              decoding="async"
-            />
-          ) : null}
-        </header>
 
-        <MarkdownContent className={styles.content} html={post.contentHtml} />
+          <Comments />
+        </article>
 
-        <div className={styles.backArea}>
-          <Link href="/blog" className="button-secondary">
-            返回文章列表
-          </Link>
-        </div>
-
-        <Comments />
-      </article>
+        <ArticleProgress sections={post.sections} />
+      </div>
 
       {relatedPosts.length > 0 ? (
         <aside className={styles.related}>

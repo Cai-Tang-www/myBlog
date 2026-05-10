@@ -1,0 +1,85 @@
+.wrap {
+  position: sticky;
+  top: 5.6rem;
+  background: transparent;
+  padding: 0.2rem 0 0.2rem 0.7rem;
+  margin-left: 0.35rem;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rail {
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  width: 2px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--border-soft) 88%, #ffffff);
+}
+
+.progress {
+  display: block;
+  width: 100%;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent-strong) 82%, #4f6ef6);
+  transition: height 220ms ease;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.36rem;
+}
+
+.item button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  padding: 0.18rem 0.2rem 0.18rem 0.9rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.level1 button {
+  padding-left: 0.9rem;
+}
+
+.level2 button {
+  padding-left: 1.2rem;
+  font-size: 0.82rem;
+}
+
+.level3 button {
+  padding-left: 1.6rem;
+  font-size: 0.79rem;
+}
+
+.item button:hover {
+  color: color-mix(in oklab, var(--text-primary) 86%, var(--accent-strong));
+}
+
+.active button {
+  color: var(--text-primary);
+  font-weight: 700;
+  transform: scale(1.02);
+}
+
+@media (max-width: 1180px) {
+  .wrap {
+    display: none;
+  }
+}
