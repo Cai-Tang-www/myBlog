@@ -1,6 +1,6 @@
 ---
 title: Skill：Agent行动手册
-summary:梳理 Skills 的定位、边界和落地方式。
+summary: 梳理 Skills 的定位、边界和落地方式。
 publishedAt: 2026-04-17
 tags:
   - Agent
