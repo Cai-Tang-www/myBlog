@@ -350,20 +350,14 @@ flowchart TD
 以前我会更容易被架构形态吸引：DAG、Coordinator、多 worker、并发调度，这些都很像一个完整系统。但现在我会先问：
 
 - 这个功能给用户增加什么价值？
-
 - 不做它会有什么真实问题？
-
 - 当前里程碑能不能证明它稳定？
-
 - 如果失败，系统是否能解释？
-
 - 团队接手时，边界是否足够清楚？
-
 - 这个 issue 是否会拖累别人的模块？
-
 - 是否需要依赖 Git、工具链、验收、TUI 等其它模块先稳定？
 
-  答案是：
+答案是：
 
 ```text
 先做好单 Agent 主链路；
@@ -375,3 +369,11 @@ flowchart TD
 > 任务不是越复杂越好。先把 inline 做成可信执行单元，再谈 DAG 和 Coordinator，才是对用户、团队和项目进度都更稳的路线。
 
 （完）
+
+> 关于其他
+>
+> [Hooks：生命周期扩展点 | Ca1_Tang](https://ca1-tang.vercel.app/blog/hooks-lifecycle-control-layer/)
+>
+> [NeoCode 架构分析 | Ca1_Tang](https://ca1-tang.vercel.app/blog/neocode-agent/)
+>
+> [Human-in-the-Loop：人不能退出架构决策 | Ca1_Tang](https://ca1-tang.vercel.app/blog/human-in-the-loop-neocode/)
