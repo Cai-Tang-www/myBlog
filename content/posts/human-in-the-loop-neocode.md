@@ -1,9 +1,9 @@
 ---
-title: Human-in-the-Loop：为什么人不能退出架构决策？
+title: Human-in-the-Loop：人不能退出架构决策
 titleLines:
   - Human-in-the-Loop：
-  - 为什么人不能退出架构决策？
-summary: 人在 AI 辅助开发中参与目标定义、架构取舍、状态收敛、事实校验和完成判断的循环。
+  - 人不能退出架构决策
+summary: 人必须在 AI 辅助开发中参与目标定义、架构取舍、状态收敛、事实校验和完成判断的循环。
 publishedAt: 2026-05-09
 tags:
   - Agent

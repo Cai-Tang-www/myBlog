@@ -1,9 +1,9 @@
 ---
-title: Hooks 系统：从生命周期扩展点，到可演进的控制层
+title: Hooks：生命周期扩展点
 titleLines:
   - Hooks 系统：
   - 从生命周期扩展点，到可演进的控制层
-summary: Hooks 不是“脚本入口”，而是 Agent 生命周期上的扩展点系统。它让主链路收敛、附加逻辑可治理，并推动系统从“能跑”走向“可演进”。
+summary: Hooks是 Agent 生命周期上的扩展点系统。它让主链路收敛、附加逻辑可治理。
 publishedAt: 2026-04-25
 tags:
   - Agent

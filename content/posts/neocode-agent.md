@@ -1,9 +1,6 @@
 ---
-title: 从终端工具到 Agent 工程底座：NeoCode 的架构演进
-titleLines:
-  - 从终端工具到 Agent 工程底座：
-  - NeoCode 的架构演进
-summary: 好的架构做减法，功能做乘法。如何通过 Gateway、Runtime、Tools、Provider、Skills、Hooks、HITL 和 SubAgent，把一个 AI 编码工具从“功能能跑”推进到“边界清楚、状态可控、能力可扩展”。
+title: NeoCode 架构分析
+summary: 好的架构做减法，功能做乘法。
 publishedAt: 2026-05-10
 tags:
   - NeoCode
