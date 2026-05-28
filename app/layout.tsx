@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Source_Serif_4 } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { CanvasNest } from "@/components/canvas-nest";
+import { BackToTop } from "@/components/back-to-top";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -44,11 +46,14 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={`${sans.variable} ${serif.variable}`}>
       <body>
+        <CanvasNest />
+        <div className="headband" />
         <div className="site-frame">
           <SiteHeader />
-          <main>{children}</main>
+          <main className="page-enter">{children}</main>
           <SiteFooter />
         </div>
+        <BackToTop />
       </body>
     </html>
   );

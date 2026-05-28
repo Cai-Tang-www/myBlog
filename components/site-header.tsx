@@ -5,7 +5,6 @@ import styles from "./site-header.module.css";
 const navigation = [
   { href: "/", label: "首页" },
   { href: "/blog", label: "文章" },
-  { href: "/#plan", label: "路线图" },
 ];
 
 export function SiteHeader() {
@@ -15,7 +14,13 @@ export function SiteHeader() {
         <div className={styles.inner}>
           <Link href="/" className={styles.brand}>
             <span className={styles.brandBadge} aria-hidden="true" />
-            <span>{siteConfig.name}</span>
+            <span className="logo-line-before">
+              <i />
+            </span>
+            <span className={styles.siteTitle}>{siteConfig.name}</span>
+            <span className="logo-line-after">
+              <i />
+            </span>
           </Link>
           <nav className={styles.nav} aria-label="主导航">
             {navigation.map((item) => (
@@ -23,15 +28,15 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+            <a
+              className={styles.navLink}
+              href={siteConfig.links.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
           </nav>
-          <a
-            className={styles.cta}
-            href={siteConfig.links.github}
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
         </div>
       </div>
     </header>
