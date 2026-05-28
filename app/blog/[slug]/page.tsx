@@ -78,9 +78,52 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const relatedPosts = await getRelatedPosts(post.slug, post.tags, 3);
   const titleLines = post.titleLines ?? [];
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.summary,
+    url: `${baseUrl}/blog/${post.slug}/`,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: siteConfig.author,
+    },
+    keywords: post.tags.join(", "),
+    ...(post.cover ? { image: post.cover } : {}),
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: siteConfig.name,
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "文章归档",
+          item: `${baseUrl}/blog/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+        },
+      ],
+    },
+  };
 
   return (
     <div className={`container ${styles.page}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <div className={styles.readingLayout}>
         <article className={styles.article} data-pagefind-body>
           <header className={styles.header}>
