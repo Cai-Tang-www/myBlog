@@ -77,6 +77,8 @@ export const metadata: Metadata = {
     shortcut: "/favicon.svg",
   },
   other: {
+    "msvalidate.01":
+      process.env.NEXT_PUBLIC_BING_VERIFY ?? "",
     "baidu-site-verification":
       process.env.NEXT_PUBLIC_BAIDU_VERIFY ?? "",
     "applicable-device": "pc,mobile",
