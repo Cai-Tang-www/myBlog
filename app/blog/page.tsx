@@ -2,11 +2,30 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { PostCard } from "@/components/post-card";
 import { getAllPosts } from "@/lib/posts";
+import { siteConfig } from "@/lib/site-config";
 import styles from "./blog.module.css";
 
 export const metadata: Metadata = {
   title: "文章归档",
   description: "浏览所有技术文章、构建记录和内容系统实践。",
+  keywords: ["技术文章", "Agent", "后端", "Go", "构建笔记", "内容系统"],
+  robots: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+  },
+  openGraph: {
+    title: "文章归档 | Ca1_Tang",
+    description: "浏览所有技术文章、构建记录和内容系统实践。",
+    type: "website",
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "文章归档 | Ca1_Tang",
+    description: "浏览所有技术文章、构建记录和内容系统实践。",
+    images: [siteConfig.ogImage],
+  },
   alternates: {
     canonical: "/blog",
   },
