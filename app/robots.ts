@@ -1,6 +1,8 @@
 import { siteConfig } from "@/lib/site-config";
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = siteConfig.url.replace(/\/$/, "");
 
