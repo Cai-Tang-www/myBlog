@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PostCard } from "@/components/post-card";
 import { ProfileActions } from "@/components/profile-actions";
 import { getAllPosts, getFeaturedPosts, type PostSummary } from "@/lib/posts";
+import { siteConfig } from "@/lib/site-config";
 import styles from "./page.module.css";
 
 type CategoryKey = "agent" | "engineering" | "architecture";
@@ -97,8 +98,31 @@ export default async function Home() {
   const allPosts = await getAllPosts();
   const categorySections = buildCategorySections(allPosts);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    author: {
+      "@type": "Person",
+      name: siteConfig.author,
+    },
+    blogPost: featuredPosts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.summary,
+      url: `${siteConfig.url}/blog/${post.slug}/`,
+      datePublished: post.publishedAt,
+    })),
+  };
+
   return (
     <div className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <section className={`container ${styles.hero}`}>
         <div className={styles.decorLayer} aria-hidden="true">
           <span className={`${styles.orb} ${styles.orbA}`} />

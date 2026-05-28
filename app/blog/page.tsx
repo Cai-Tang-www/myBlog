@@ -35,8 +35,50 @@ export default async function BlogPage() {
   const posts = await getAllPosts();
   const pagefindRoot = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/pagefind`;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "文章归档",
+    description: "浏览所有技术文章、构建记录和内容系统实践。",
+    url: `${siteConfig.url}/blog/`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.summary,
+          url: `${siteConfig.url}/blog/${post.slug}/`,
+          datePublished: post.publishedAt,
+        },
+      })),
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: siteConfig.name,
+          item: siteConfig.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "文章归档",
+        },
+      ],
+    },
+  };
+
   return (
     <div className={`container ${styles.page}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className={styles.header}>
         <p className={styles.kicker}>ARTICLE INDEX</p>
         <h1>文章归档</h1>
