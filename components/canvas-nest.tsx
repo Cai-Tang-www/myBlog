@@ -84,8 +84,8 @@ export function CanvasNest() {
         d.xa *= (d.x > W || d.x < 0) ? -1 : 1;
         d.ya *= (d.y > H || d.y < 0) ? -1 : 1;
 
-        // Draw dot (original uses default fillStyle = black, 1px rect)
-        ctx.fillStyle = "#000000";
+        // Dot — deeper blue, visible even when no connections nearby
+        ctx.fillStyle = "#1e5fb4";
         ctx.fillRect(d.x - 0.5, d.y - 0.5, 1, 1);
 
         // Draw connections from this dot to all others in drawList
