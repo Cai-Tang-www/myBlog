@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 
 const CONFIG = {
   color: "28,85,210",    // visible blue for lines
-  opacity: 0.7,          // increased for better contrast
+  opacity: 0.9,          // higher contrast
   count: 115,            // particle count
   particleMax: 6000,    // max dist² between particles (~77px)
   mouseMax: 20000,      // max dist² from mouse (~141px)
