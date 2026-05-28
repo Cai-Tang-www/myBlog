@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 // We use zIndex:0 because body bg is transparent (see globals.css)
 
 const CONFIG = {
-  color: "30,100,220",  // deeper blue, more visible
+  color: "18,55,170",   // deep blue for lines
   opacity: 0.5,         // canvas opacity
   count: 115,           // particle count
   particleMax: 6000,   // max dist² between particles (~77px)
@@ -84,8 +84,8 @@ export function CanvasNest() {
         d.xa *= (d.x > W || d.x < 0) ? -1 : 1;
         d.ya *= (d.y > H || d.y < 0) ? -1 : 1;
 
-        // Dot — deeper blue, visible even when no connections nearby
-        ctx.fillStyle = "#1e5fb4";
+        // Dot — much deeper blue, visible even when no connections nearby
+        ctx.fillStyle = "#0b2b5e";
         ctx.fillRect(d.x - 0.5, d.y - 0.5, 1, 1);
 
         // Draw connections from this dot to all others in drawList
