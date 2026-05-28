@@ -5,6 +5,7 @@ import { Comments } from "@/components/comments";
 import { MarkdownContent } from "@/components/markdown-content";
 import { PostCard } from "@/components/post-card";
 import { ArticleProgress } from "@/components/article-progress";
+import { siteConfig } from "@/lib/site-config";
 import {
   formatPublishedAt,
   getAllPosts,
@@ -37,6 +38,14 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.summary,
+    authors: [{ name: siteConfig.author }],
+    keywords: post.tags,
+    robots: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
@@ -46,6 +55,15 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.publishedAt,
       tags: post.tags,
+      images: post.cover
+        ? [{ url: post.cover, width: 960, alt: post.title }]
+        : [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: post.cover ? [post.cover] : [siteConfig.ogImage],
     },
   };
 }
