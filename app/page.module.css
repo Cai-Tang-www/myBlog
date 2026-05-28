@@ -1,3 +1,14 @@
+@keyframes morph {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(6px, -12px, 0) scale(1.05); }
+  66%      { transform: translate3d(-8px, 8px, 0) scale(0.96); }
+}
+
+@keyframes slideUpIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .page {
   display: grid;
   gap: 2rem;
