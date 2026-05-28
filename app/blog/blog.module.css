@@ -1,47 +1,40 @@
 .page {
-  padding-top: 1.6rem;
+  padding-top: 2rem;
   padding-bottom: 1.2rem;
 }
 
 .header {
   border: 1px solid var(--border-soft);
-  border-radius: 1.2rem;
-  background: linear-gradient(
-    160deg,
-    color-mix(in oklab, var(--surface-card) 94%, #ffffff),
-    color-mix(in oklab, var(--surface-card-soft) 80%, #ffffff)
-  );
-  padding: 1.4rem 1.2rem;
-  box-shadow: var(--shadow-soft);
+  background: var(--surface-card);
+  padding: 1.5rem 1.3rem;
 }
 
 .kicker {
   margin: 0;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
-  font-weight: 700;
-  color: var(--accent-strong);
+  font-weight: 600;
+  color: #888888;
 }
 
 .header h1 {
-  margin: 0.72rem 0 0;
-  font-size: clamp(1.9rem, 2vw + 1rem, 2.8rem);
-  letter-spacing: -0.03em;
+  margin: 0.7rem 0 0;
+  font-size: clamp(1.7rem, 2vw + 0.8rem, 2.2rem);
+  font-weight: 600;
 }
 
 .header p {
-  margin: 0.7rem 0 0;
+  margin: 0.6rem 0 0;
   line-height: 1.7;
   max-width: 62ch;
-  color: var(--text-secondary);
+  color: #555555;
 }
 
 .searchArea {
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   border: 1px solid var(--border-soft);
-  border-radius: 1rem;
   padding: 1rem;
-  background: color-mix(in oklab, var(--surface-card-soft) 72%, #ffffff);
+  background: var(--surface-card);
 }
 
 .searchArea :global(.pagefind-ui__form) {
@@ -50,44 +43,44 @@
 
 .searchArea :global(.pagefind-ui__search-input) {
   width: 100%;
-  border: 1px solid var(--border-strong);
-  border-radius: 0.9rem;
-  background: color-mix(in oklab, var(--surface-card) 92%, #ffffff);
-  color: var(--text-primary);
-  padding: 0.72rem 0.84rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #222222;
+  padding: 0.7rem 0.8rem;
   font-size: 0.95rem;
+  border-radius: 4px;
 }
 
 .searchArea :global(.pagefind-ui__search-input::placeholder) {
-  color: var(--text-muted);
+  color: #888888;
 }
 
 .searchArea :global(.pagefind-ui__result) {
-  border: 1px solid var(--border-soft);
-  border-radius: 0.85rem;
-  padding: 0.72rem 0.78rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.7rem 0.8rem;
   margin-top: 0.7rem;
-  background: color-mix(in oklab, var(--surface-card) 92%, #ffffff);
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
 }
 
 .searchArea :global(.pagefind-ui__result-title),
 .searchArea :global(.pagefind-ui__result-link) {
-  color: var(--text-primary);
+  color: #222222;
 }
 
 .searchArea :global(.pagefind-ui__result-excerpt) {
-  color: var(--text-secondary);
+  color: #555555;
 }
 
 .searchArea :global(mark) {
-  background: color-mix(in oklab, var(--accent-strong) 38%, transparent);
-  color: var(--text-primary);
+  background: #e8e8e8;
+  color: #222222;
 }
 
 .grid {
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   display: grid;
-  gap: 0.9rem;
+  gap: 1rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 

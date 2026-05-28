@@ -11,17 +11,16 @@
 
 .hint {
   margin: 0.55rem 0 0.9rem;
-  color: var(--text-muted);
+  color: #888888;
   font-size: 0.9rem;
   line-height: 1.65;
 }
 
 .fallback {
   margin-top: 2.2rem;
-  border: 1px dashed var(--border-strong);
-  border-radius: 1rem;
+  border: 1px dashed rgba(255,255,255,0.2);
   padding: 1.25rem 1.1rem;
-  background: color-mix(in oklab, var(--surface-card-soft) 74%, #ffffff);
+  background: rgba(255,255,255,0.06);
 }
 
 .fallback h2 {
@@ -31,7 +30,7 @@
 
 .fallback p {
   margin: 0.55rem 0 0;
-  color: var(--text-secondary);
+  color: #555555;
   line-height: 1.7;
   font-size: 0.93rem;
 }

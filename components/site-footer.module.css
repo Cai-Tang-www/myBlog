@@ -1,48 +1,46 @@
 .footer {
-  margin-top: 4rem;
+  margin-top: 3rem;
   border-top: 1px solid var(--border-soft);
-  padding: 2.4rem 0 2.8rem;
-  background: color-mix(in oklab, var(--surface-base) 82%, #ffffff);
+  padding: 1.8rem 0 2rem;
+  background: var(--surface-card);
 }
 
 .inner {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 1.2rem;
+  align-items: center;
+  gap: 1rem;
 }
 
-.brand {
+.copyright {
   margin: 0;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-.caption {
-  margin: 0.4rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
+  color: #888888;
+  font-size: 0.88rem;
 }
 
 .links {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   align-items: center;
 }
 
 .links a {
-  color: var(--text-secondary);
+  color: #555555;
   text-decoration: none;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid transparent;
+  transition: color 180ms ease, border-color 180ms ease;
 }
 
 .links a:hover {
-  color: var(--accent-strong);
+  color: #222222;
+  border-bottom-color: #222222;
 }
 
 @media (max-width: 680px) {
   .inner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 }
