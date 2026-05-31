@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const POSTS_DIR = join(__dirname, "..", "content", "posts");
 const PUBLIC_DIR = join(__dirname, "..", "public");
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cai-tang.pages.dev";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://cai-tang.pages.dev").replace(/\/+$/, "");
 const SITE_TITLE = "Ca1_Tang | 技术写作与构建笔记";
 const SITE_DESC =
   "聚焦工程实践、内容系统和产品设计的个人技术博客，采用 Next.js SSG 构建。";
