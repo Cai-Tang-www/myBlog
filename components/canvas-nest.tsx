@@ -10,6 +10,7 @@ const CONFIG = {
   color: "28,85,210",    // visible blue for lines
   opacity: 0.9,          // higher contrast
   count: 115,            // particle count
+  mobileCount: 55,       // particle count on mobile
   particleMax: 6000,    // max dist² between particles (~77px)
   mouseMax: 20000,      // max dist² from mouse (~141px)
 };
@@ -44,6 +45,8 @@ export function CanvasNest() {
     resize();
     window.addEventListener("resize", resize);
 
+    const particleCount = window.innerWidth < 768 ? CONFIG.mobileCount : CONFIG.count;
+
     const onMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
@@ -56,7 +59,7 @@ export function CanvasNest() {
     window.addEventListener("mouseout", onMouseOut);
 
     // Init: velocity in [-1, 1] (matches original 2*Math.random()-1)
-    for (let i = 0; i < CONFIG.count; i++) {
+    for (let i = 0; i < particleCount; i++) {
       dots.push({
         x: Math.random() * W,
         y: Math.random() * H,

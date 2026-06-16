@@ -1,0 +1,302 @@
+/* ============================================
+   留言板页面样式
+   包含 float 布局演示（覆盖课程"浮动"要求）
+   ============================================ */
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 页面容器 ── */
+
+.page {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem 0 2.5rem;
+}
+
+/* ── 头部 ── */
+
+.hero {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card);
+  padding: 1.5rem 1.5rem;
+  opacity: 0;
+  animation: slideUpIn 0.5s ease forwards;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.4rem, 1vw + 1rem, 1.8rem);
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── 表单区域 ── */
+
+.formSection {
+  position: relative;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card);
+  padding: 1.8rem 1.5rem;
+  opacity: 0;
+  animation: slideUpIn 0.5s ease 0.1s forwards;
+}
+
+/* ── 浮动装饰元素（CSS float 布局演示）── */
+
+.floatDeco {
+  /* 核心：使用 float 实现文字环绕 */
+  float: right;
+  width: 80px;
+  height: 80px;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface-card-soft);
+  color: var(--text-muted);
+}
+
+.floatIcon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.floatLabel {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ── 表单 ── */
+
+.form {
+  /* 清除浮动，确保表单不受 float 影响而错位 */
+  overflow: hidden;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.required {
+  color: #e05d5d;
+}
+
+.input,
+.textarea {
+  padding: 0.65rem 0.8rem;
+  font-family: var(--font-sans), "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.inputError {
+  border-color: #e05d5d;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.charCount {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.errorText {
+  font-size: 0.82rem;
+  color: #e05d5d;
+  animation: slideUpIn 0.25s ease;
+}
+
+/* ── 提交按钮 ── */
+
+.submitBtn {
+  justify-self: start;
+  padding: 0.6rem 1.8rem;
+  font-family: var(--font-sans), "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease,
+    color 200ms ease;
+}
+
+.submitBtn:hover {
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.submitBtn:active {
+  transform: translateY(1px);
+}
+
+/* ── 成功提示 ── */
+
+.successToast {
+  margin-bottom: 1.2rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.92rem;
+  color: #2e7d32;
+  background: rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  border-radius: 4px;
+  animation: toastIn 0.36s ease;
+}
+
+/* ── 历史留言 ── */
+
+.history {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card);
+  padding: 1.5rem 1.5rem;
+  opacity: 0;
+  animation: slideUpIn 0.5s ease 0.2s forwards;
+}
+
+.historyTitle {
+  margin: 0 0 1rem;
+  font-size: 1.18rem;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.historyCount {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.messageList {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.messageCard {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card-soft);
+  border-radius: 4px;
+}
+
+.messageHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.messageName {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.messageTime {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.messageBody {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── 响应式：移动端移除浮动、回退为正常流 ── */
+
+@media (max-width: 640px) {
+  .floatDeco {
+    float: none;
+    margin: 0 auto 1.2rem;
+    width: 64px;
+    height: 64px;
+  }
+
+  .formSection {
+    padding: 1.2rem 1rem;
+  }
+
+  .submitBtn {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    gap: 1.2rem;
+    padding: 1rem 0 1.5rem;
+  }
+
+  .hero {
+    padding: 1rem;
+  }
+}

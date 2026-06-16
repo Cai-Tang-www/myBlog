@@ -203,6 +203,21 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* 关于本站 —— 使用 float 实现文字环绕布局 */}
+      <section className={`container ${styles.aboutSection}`}>
+        <div className={styles.aboutDecor} aria-hidden="true">
+          <span className={styles.aboutIcon}>📝</span>
+        </div>
+        <h2 className={styles.aboutTitle}>关于本站</h2>
+        <p className={styles.aboutText}>
+          这是一个基于 Next.js 静态导出（SSG）构建的个人技术博客，内容涵盖
+          Agent 开发、后端工程实践与系统架构思考。
+          本模块使用 CSS <code>float: right</code> 实现装饰图标与文字环绕排版
+          ——这是一种经典的 CSS 布局方式，与现代 Flex/Grid 布局形成互补。
+          项目源码完全开放，欢迎通过留言板交流想法。
+        </p>
+      </section>
+
       <section id="plan" className={`container ${styles.phaseSection}`}>
         <div className={styles.sectionHeader}>
           <h2>文章板块</h2>

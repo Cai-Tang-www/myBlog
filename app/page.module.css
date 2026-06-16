@@ -244,6 +244,76 @@
   gap: 1rem;
 }
 
+/* ── 关于本站（float 布局演示）── */
+
+.aboutSection {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card);
+  padding: 1.5rem 1.5rem;
+  /* 清除内部浮动，防止父容器高度塌陷 */
+  overflow: hidden;
+  opacity: 0;
+  animation: slideUpIn 0.5s ease 0.15s forwards;
+}
+
+/* 核心：float: right 装饰图标，文字在左侧自然环绕 */
+.aboutDecor {
+  float: right;
+  width: 84px;
+  height: 84px;
+  margin-left: 1.8rem;
+  margin-bottom: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface-card-soft);
+}
+
+.aboutIcon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.aboutTitle {
+  margin: 0;
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.aboutText {
+  margin: 0.7rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.72;
+}
+
+.aboutText code {
+  font-family: "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  font-size: 0.88em;
+  padding: 0.12em 0.4em;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-soft);
+  border-radius: 3px;
+  color: var(--text-primary);
+}
+
+/* 移动端：float 回退为正常文档流 */
+@media (max-width: 640px) {
+  .aboutDecor {
+    float: none;
+    margin: 0 auto 1rem;
+    width: 64px;
+    height: 64px;
+  }
+
+  .aboutTitle {
+    text-align: center;
+  }
+}
+
 /* ── Phase section ── */
 
 .phaseSection {
