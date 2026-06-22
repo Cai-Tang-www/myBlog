@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/generate-rss.mjs",
-    "build": "next build",
-    "build:search": "npm run prebuild && next build && pagefind --site out",
+    "build": "npm run prebuild && next build && pagefind --site out",
+    "build:search": "npm run build",
     "search:index": "pagefind --site out",
     "start": "next start",
     "lint": "eslint",
