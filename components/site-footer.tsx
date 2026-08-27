@@ -7,7 +7,7 @@ export function SiteFooter() {
 
   return (
     <footer className={styles.footer} data-pagefind-ignore>
-      <div className="container">
+      <div className="container wide-container">
         <div className={styles.inner}>
           <p className={styles.copyright}>
             &copy; {year} {siteConfig.author}

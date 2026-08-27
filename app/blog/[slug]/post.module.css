@@ -3,12 +3,13 @@
   padding-bottom: 1.2rem;
   display: grid;
   gap: 1.2rem;
+  width: var(--wide-container-width);
 }
 
 .readingLayout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 13.6rem;
-  gap: 2.8rem;
+  grid-template-columns: minmax(0, 1fr) minmax(14.5rem, 16rem);
+  gap: clamp(2.8rem, 3.5vw, 4rem);
   align-items: start;
 }
 
@@ -16,6 +17,7 @@
   border: 1px solid var(--border-soft);
   background: var(--surface-card);
   padding: 1.6rem 1.4rem;
+  min-width: 0;
 }
 
 .header {
@@ -37,6 +39,7 @@
   font-weight: 700;
   line-height: 1.15;
   max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .titleLineManual {
@@ -68,18 +71,32 @@
 
 .content {
   margin-top: 1.5rem;
-  font-family: var(--font-serif), Georgia, serif;
-  line-height: 1.88;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Noto Sans CJK SC",
+    "Microsoft YaHei",
+    var(--font-serif),
+    Georgia,
+    serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
   color: #222222;
-  font-size: 1.08rem;
+  font-synthesis: none;
+  overflow-wrap: anywhere;
 }
 
 .content :global(h2),
 .content :global(h3),
-.content :global(h4) {
+.content :global(h4),
+.content :global(h5),
+.content :global(h6) {
   margin: 2rem 0 0.7rem;
   line-height: 1.25;
   font-family: var(--font-sans), "Segoe UI", "PingFang SC", sans-serif;
+  scroll-margin-top: 5.6rem;
 }
 
 .content :global(h2) {
@@ -94,6 +111,23 @@
 
 .content :global(p) {
   margin: 0.95rem 0 0;
+}
+
+.content :global(a) {
+  color: #315f85;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+.content :global(strong) {
+  font-weight: 700;
+}
+
+.content :global(em),
+.content :global(i) {
+  font-style: normal;
+  font-weight: 600;
 }
 
 .content :global(code) {
@@ -113,6 +147,8 @@
   background: rgba(255,255,255,0.08);
   color: #222222;
   font-size: 0.92rem;
+  line-height: 1.65;
+  tab-size: 2;
 }
 
 .content :global(pre code) {
@@ -128,11 +164,62 @@
   padding-left: 1.2rem;
 }
 
+.content :global(li + li) {
+  margin-top: 0.28rem;
+}
+
+.content :global(.contains-task-list) {
+  padding-left: 0;
+  list-style: none;
+}
+
+.content :global(.task-list-item) {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.content :global(input[type="checkbox"]) {
+  accent-color: #555555;
+}
+
 .content :global(blockquote) {
   margin: 1.2rem 0 0;
   border-left: 3px solid rgba(255,255,255,0.3);
   padding: 0.2rem 0 0.2rem 0.9rem;
   color: #555555;
+}
+
+.content :global(hr) {
+  margin: 2rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.content :global(table) {
+  display: block;
+  width: 100%;
+  margin: 1.3rem 0 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.96em;
+  line-height: 1.6;
+}
+
+.content :global(th),
+.content :global(td) {
+  min-width: 7rem;
+  padding: 0.62rem 0.75rem;
+  border: 1px solid rgba(34, 34, 34, 0.16);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+
+.content :global(th) {
+  background: rgba(255, 255, 255, 0.2);
+  font-family: var(--font-sans), "Segoe UI", "PingFang SC", sans-serif;
+  font-weight: 700;
 }
 
 .content :global(img) {
