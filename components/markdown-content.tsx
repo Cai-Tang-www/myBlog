@@ -7,38 +7,17 @@ interface MermaidApi {
   run: (options?: { nodes?: Element[] }) => Promise<void>;
 }
 
-declare global {
-  interface Window {
-    mermaid?: MermaidApi;
-    __mermaidLoadingPromise?: Promise<void>;
-  }
-}
-
 let mermaidInitialized = false;
+let mermaidLoadingPromise: Promise<MermaidApi> | null = null;
 
-function ensureMermaidScript(): Promise<void> {
-  if (typeof window === "undefined") {
-    return Promise.resolve();
+function ensureMermaid(): Promise<MermaidApi> {
+  if (!mermaidLoadingPromise) {
+    mermaidLoadingPromise = import("mermaid").then(({ default: mermaid }) => {
+      return mermaid as unknown as MermaidApi;
+    });
   }
 
-  if (window.mermaid) {
-    return Promise.resolve();
-  }
-
-  if (window.__mermaidLoadingPromise) {
-    return window.__mermaidLoadingPromise;
-  }
-
-  window.__mermaidLoadingPromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load Mermaid script"));
-    document.head.appendChild(script);
-  });
-
-  return window.__mermaidLoadingPromise;
+  return mermaidLoadingPromise;
 }
 
 function collectMermaidNodes(root: HTMLElement): HTMLElement[] {
@@ -84,13 +63,13 @@ export function MarkdownContent({ html, className }: MarkdownContentProps) {
         return;
       }
 
-      await ensureMermaidScript();
-      if (cancelled || !window.mermaid) {
+      const mermaid = await ensureMermaid();
+      if (cancelled) {
         return;
       }
 
       if (!mermaidInitialized) {
-        window.mermaid.initialize({
+        mermaid.initialize({
           startOnLoad: false,
           securityLevel: "loose",
           theme: "default",
@@ -99,7 +78,7 @@ export function MarkdownContent({ html, className }: MarkdownContentProps) {
         mermaidInitialized = true;
       }
 
-      await window.mermaid.run({ nodes });
+      await mermaid.run({ nodes });
     };
 
     renderMermaid().catch((error) => {
