@@ -7,6 +7,7 @@
 - Next.js App Router + 静态导出（`output: "export"`）
 - 首页（设计系统 + 动效）
 - 博客列表页 / 文章详情页
+- 项目经历页（展示 neo-code、GoAI、SRE-Buddy 等项目实践）
 - `content/posts` Markdown 内容管线
 - giscus 评论组件预接入
 - Pagefind 搜索挂载位
@@ -20,6 +21,9 @@
 │  ├─ blog/
 │  │  ├─ [slug]/page.tsx
 │  │  └─ page.tsx
+│  ├─ projects/
+│  │  ├─ page.tsx
+│  │  └─ projects.module.css
 │  ├─ layout.tsx
 │  └─ page.tsx
 ├─ components/
