@@ -5,6 +5,7 @@ import styles from "./site-header.module.css";
 const navigation = [
   { href: "/", label: "首页" },
   { href: "/blog", label: "文章" },
+  { href: "/projects", label: "项目经历" },
 ];
 
 export function SiteHeader() {
