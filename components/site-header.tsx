@@ -10,7 +10,7 @@ const navigation = [
 export function SiteHeader() {
   return (
     <header className={styles.header} data-pagefind-ignore>
-      <div className="container">
+      <div className="container wide-container">
         <div className={styles.inner}>
           <Link href="/" className={styles.brand}>
             <span className={styles.brandBadge} aria-hidden="true" />

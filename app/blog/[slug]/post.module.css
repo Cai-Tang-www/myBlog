@@ -3,7 +3,7 @@
   padding-bottom: 1.2rem;
   display: grid;
   gap: 1.2rem;
-  width: min(1180px, calc(40vw + 30.5rem), calc(100vw - 2.4rem));
+  width: var(--wide-container-width);
 }
 
 .readingLayout {
@@ -276,10 +276,6 @@
 }
 
 @media (max-width: 720px) {
-  .page {
-    width: calc(100vw - 1.4rem);
-  }
-
   .article {
     padding: 1.1rem 0.9rem;
   }
