@@ -28,9 +28,18 @@ body {
 }
 
 body {
-  font-family: var(--font-sans), "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family:
+    var(--font-sans),
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    "Segoe UI",
+    sans-serif;
   color: #222222;
   background: transparent;
+  font-synthesis: none;
 }
 
 a {
