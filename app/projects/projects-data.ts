@@ -9,6 +9,7 @@ export interface Project {
   problems: string[];
   visualLabel: string;
   visualNodes: string[];
+  images?: { src: string; alt: string; width: number; height: number }[];
   link?: { label: string; href: string };
 }
 
@@ -71,5 +72,19 @@ export const projects: Project[] = [
     ],
     visualLabel: "Approval / Worker / MCP Governance",
     visualNodes: ["AI Plan", "Approval Gate", "mTLS Worker", "Audit + Result"],
+    images: [
+      {
+        src: "/images/projects/sre-buddy-investigation.png",
+        alt: "SRE-Buddy 网络排障会话与命令执行结果",
+        width: 3582,
+        height: 1768,
+      },
+      {
+        src: "/images/projects/sre-buddy-mcp-admin.png",
+        alt: "SRE-Buddy 管理后台中的 MCP 服务配置",
+        width: 3584,
+        height: 1776,
+      },
+    ],
   },
 ];

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import type { Project } from "./projects-data";
 import styles from "./projects.module.css";
 
@@ -11,9 +12,32 @@ interface ProjectShowcaseProps {
 
 export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   const [activeId, setActiveId] = useState(projects[0]?.id ?? "");
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
   const activeProject = projects.find((project) => project.id === activeId) ?? projects[0];
 
   if (!activeProject) return null;
+
+  const projectImages = activeProject.images ?? [];
+  const activeImage = projectImages[activeImageIndex % Math.max(projectImages.length, 1)];
+  const selectProject = (id: string) => {
+    setActiveId(id);
+    setActiveImageIndex(0);
+  };
+  const moveImage = (direction: number) => {
+    if (projectImages.length < 2) return;
+    setActiveImageIndex((current) => (current + direction + projectImages.length) % projectImages.length);
+  };
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const deltaX = (event.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(deltaX) < 40) return;
+    moveImage(deltaX < 0 ? 1 : -1);
+  };
 
   return (
     <div className={`container wide-container ${styles.page}`}>
@@ -26,6 +50,31 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       <section className={styles.showcase} aria-label="项目经历展示">
         <div className={styles.mainColumn}>
           <figure className={styles.visual} aria-label={`${activeProject.name} 项目预览`}>
+            {activeImage ? (
+              <>
+                <div className={styles.imageStage} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+                  <Image className={styles.projectImage} src={activeImage.src} alt={activeImage.alt} width={activeImage.width} height={activeImage.height} priority={activeImageIndex === 0} sizes="(max-width: 720px) 100vw, calc(100vw - 28rem)" />
+                  {projectImages.length > 1 ? (
+                    <>
+                      <button className={`${styles.imageControl} ${styles.imageControlPrevious}`} type="button" aria-label="查看上一张项目图片" title="上一张" onClick={() => moveImage(-1)}>←</button>
+                      <button className={`${styles.imageControl} ${styles.imageControlNext}`} type="button" aria-label="查看下一张项目图片" title="下一张" onClick={() => moveImage(1)}>→</button>
+                      <span className={styles.imageCounter}>{String(activeImageIndex + 1).padStart(2, "0")} / {String(projectImages.length).padStart(2, "0")}</span>
+                    </>
+                  ) : null}
+                </div>
+                {projectImages.length > 1 ? (
+                  <div className={styles.thumbnails} aria-label="项目图片选择">
+                    {projectImages.map((image, index) => (
+                      <button className={`${styles.thumbnail} ${index === activeImageIndex ? styles.thumbnailActive : ""}`} type="button" key={image.src} aria-label={`查看第 ${index + 1} 张图片`} aria-pressed={index === activeImageIndex} onClick={() => setActiveImageIndex(index)}>
+                        <Image src={image.src} alt="" width={image.width} height={image.height} sizes="7rem" />
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+                <figcaption>项目界面与工作流截图</figcaption>
+              </>
+            ) : (
+              <>
             <div className={styles.visualHeader}>
               <span className={styles.trafficLights} aria-hidden="true"><i /><i /><i /></span>
               <span>{activeProject.name} / project preview</span>
@@ -46,6 +95,8 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
               <div className={styles.visualFooter}><span>BOUNDARY CHECK</span><span>TRACE READY</span><span>RECOVERABLE</span></div>
             </div>
             <figcaption>项目架构与贡献方向预览</figcaption>
+              </>
+            )}
           </figure>
 
           <article className={styles.details} key={activeProject.id}>
@@ -74,7 +125,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
           <div className={styles.projectList}>
             {projects.map((project, index) => {
               const isActive = project.id === activeProject.id;
-              return <button className={`${styles.projectItem} ${isActive ? styles.projectItemActive : ""}`} type="button" key={project.id} aria-pressed={isActive} onClick={() => setActiveId(project.id)}>
+              return <button className={`${styles.projectItem} ${isActive ? styles.projectItemActive : ""}`} type="button" key={project.id} aria-pressed={isActive} onClick={() => selectProject(project.id)}>
                 <span className={styles.itemNumber}>0{index + 1}</span>
                 <span className={styles.itemCopy}><strong>{project.name}</strong><small>{project.type.replace("团队项目 · ", "").replace("个人项目 · ", "")}</small><span>{project.visualLabel}</span></span>
                 <span className={styles.itemDot} aria-hidden="true" />
