@@ -44,7 +44,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       <header className={styles.intro}>
         <p className={styles.kicker}>PROJECT EXPERIENCE</p>
         <h1>项目经历</h1>
-        <p>我主要关注 Go 后端、AI Runtime、工具执行安全，以及可观测、可恢复的分布式系统。选择右侧项目，查看我负责的模块和解决的工程问题。</p>
+        <p>我主要关注 Go 后端、AI Runtime、工具执行安全，以及可观测、可恢复的分布式系统。选择右侧项目，查看项目定位、核心功能和它解决的工程痛点。</p>
       </header>
 
       <section className={styles.showcase} aria-label="项目经历展示">
@@ -94,7 +94,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
               </div>
               <div className={styles.visualFooter}><span>BOUNDARY CHECK</span><span>TRACE READY</span><span>RECOVERABLE</span></div>
             </div>
-            <figcaption>项目架构与贡献方向预览</figcaption>
+            <figcaption>项目架构与功能预览</figcaption>
               </>
             )}
           </figure>
@@ -110,8 +110,8 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
             <p className={styles.type}>{activeProject.type}</p>
             <p className={styles.description}>{activeProject.description}</p>
             <div className={styles.detailGrid}>
-              <div className={styles.section}><h3>我的贡献</h3><ul>{activeProject.contribution.map((item) => <li key={item}>{item}</li>)}</ul></div>
-              <div className={styles.section}><h3>解决的问题</h3><ul>{activeProject.problems.map((item) => <li key={item}>{item}</li>)}</ul></div>
+              <div className={styles.section}><h3>核心功能</h3><ul>{activeProject.features.map((item) => <li key={item}>{item}</li>)}</ul></div>
+              <div className={styles.section}><h3>解决的痛点</h3><ul>{activeProject.problems.map((item) => <li key={item}>{item}</li>)}</ul></div>
             </div>
             <div className={styles.bottomRow}>
               <div className={styles.tags} aria-label={`${activeProject.name} 技术标签`}>{activeProject.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>

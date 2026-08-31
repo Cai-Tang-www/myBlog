@@ -5,7 +5,7 @@ export interface Project {
   period: string;
   tags: string[];
   description: string;
-  contribution: string[];
+  features: string[];
   problems: string[];
   visualLabel: string;
   visualNodes: string[];
@@ -18,17 +18,17 @@ export const projects: Project[] = [
     id: "neo-code",
     name: "neo-code",
     type: "团队开源项目 · MIT",
-    period: "长期参与",
+    period: "持续建设",
     tags: ["Go", "AI Coding Agent", "Runtime Hooks", "SubAgent", "MCP", "WebSocket"],
-    description: "本地优先的 AI Coding Agent。用户请求经 Gateway 进入 Runtime，调用工具后可通过 TUI、Web、桌面端或飞书完成交互。",
-    contribution: [
-      "推进 Runtime Hooks 从生命周期点位演进到带版本 Schema、Matcher DSL、command JSON 协议和 lint / dry-run / trace CLI 的扩展平台。",
-      "实现 SubAgent 的 CapabilityToken、DAG 调度、取消 / 重试 / 恢复和工具调用闭环，统一复用权限与工作区沙箱。",
-      "参与飞书审批状态机与本机 Runner 安全通道，支持远程触发本机工具且不开放入站端口。",
+    description: "本地优先的 AI Coding Agent，让模型在真实工作区中理解代码、修改文件、执行命令并管理会话；同一套能力可通过 Gateway 接入终端、Web、桌面端与飞书。",
+    features: [
+      "工作区理解与工具执行：读取项目、分析代码、修改文件、执行命令，围绕真实上下文完成开发任务。",
+      "多端与协议接入：TUI、Web UI、桌面端和飞书共享 Gateway，通过 JSON-RPC、SSE 或 WebSocket 接入。",
+      "可扩展运行时：支持多模型 Provider、会话持久化、记忆、Skills、MCP 与主动连接 Gateway 的本地 Runner。",
     ],
     problems: [
-      "解决扩展点、事件契约和 payload 漂移导致的 Runtime 不可维护问题。",
-      "解决多 Agent 失败恢复、越权路径、重复执行和多入口状态不一致问题。",
+      "减少在终端、编辑器和协作工具之间反复搬运上下文，让 AI 直接进入真实项目工作流。",
+      "在扩展本机工具能力的同时保持安全边界：本地 Runner 主动连接 Gateway，无需开放入站端口。",
     ],
     visualLabel: "Runtime / Security / Extension",
     visualNodes: ["Gateway", "Runtime Hooks", "ToolManager", "Workspace Sandbox"],
@@ -52,17 +52,17 @@ export const projects: Project[] = [
     id: "goai",
     name: "GoAI",
     type: "个人项目 · 多 Agent Runtime",
-    period: "独立设计与实现",
+    period: "独立设计",
     tags: ["Go", "Eino", "AG-UI", "A2A", "MCP", "Kafka", "OpenTelemetry", "React Flow"],
-    description: "协议优先的多 Agent Runtime 原型，将 Agent 协作、异步恢复、权限、观测和管理面组织成可复用的平台底座。",
-    contribution: [
-      "设计 Thread / Run / Delegation 领域模型，建立 AG-UI、Eino Graph、A2A、MCP 与 Kafka 的边界。",
-      "实现 callback 驱动的 Parent Run suspend / resume、fenced resume lease，以及 agent_group 的 all / any / quorum fan-in。",
-      "补齐 Agent、Workflow、MCP Registry，Loop / Trace / Replay / Eval 观测，OpenAPI 与 React Flow Runtime Console。",
+    description: "基于 Go 的多 Agent 协议运行时平台，为 Agent 协作提供通信、执行、权限、异步恢复、回放与观测等可复用底座。",
+    features: [
+      "协议运行时：用 AG-UI 承载用户与 Runtime 的交互，用 A2A 处理 Agent 委派、状态更新和结果回流。",
+      "统一执行模型：以 Thread、Message、Run、Delegation 组织协作上下文，接入 Eino Graph / Workflow 与 MCP 工具。",
+      "工程化底座：提供 Agent Registry、JWT / RBAC、Kafka、Redis、MySQL，以及 Trace、Replay、Eval 等运行能力。",
     ],
     problems: [
-      "解决远程 Agent 协作中的崩溃接管、乱序回调、重复消息和部分失败问题。",
-      "解决本地直调与远程调用语义分叉，让协议、鉴权、trace 和恢复逻辑保持一致。",
+      "避免每个 Agent 应用重复实现通信、鉴权、异步执行、状态持久化和观测基础设施。",
+      "处理跨 Agent 调用中的乱序回调、重复消息、部分失败与崩溃接管，让协作过程可恢复、可追踪。",
     ],
     visualLabel: "Protocol / Recovery / Observability",
     visualNodes: ["AG-UI", "A2A Gateway", "Run Lease", "Trace + Replay"],
@@ -71,18 +71,18 @@ export const projects: Project[] = [
   {
     id: "sre-buddy",
     name: "SRE-Buddy",
-    type: "团队项目 · SRE 排障平台",
-    period: "核心贡献者",
+    type: "团队项目 · 可审计 AI 运维排障工作台",
+    period: "团队项目",
     tags: ["Go", "Gin", "Eino", "PostgreSQL", "MCP", "JumpServer", "mTLS", "WSS"],
-    description: "面向 SRE 排障的 AI Agent 平台。模型提出诊断计划，系统结合会话、审批、审计、加密凭据和远程 Worker 执行目标机命令。",
-    contribution: [
-      "基于 Eino StatefulInterrupt 与 checkpoint 实现审批后继续执行，支持同一回合多工具乱序审批和并行执行。",
-      "设计 ExecuteRequest、确定性 digest 与审批绑定，落地 Worker mTLS / WSS、短期凭证、连接复用和目标用户隔离。",
-      "将 MCP 接入统一 Executor，完成不可变 Catalog、Schema 校验、按工具审批策略、配置加密和发布回滚链路。",
+    description: "把自然语言对话、模型推理、工具调用、人工审批和基础设施执行放进同一个 SRE 工作台，让排障过程清晰、可控、可回放。",
+    features: [
+      "对话式排障：在持续会话中展示诊断过程、工具参数、审批状态、执行输出和最终结论。",
+      "受控执行：只读操作可按策略直接执行，高风险操作进入审批；通过 JumpServer 和一次性 Worker 诊断真实主机。",
+      "MCP 与审计：从管理后台接入远端 MCP Server，持久化会话、流式事件和审计记录，并对敏感结果进行扫描。",
     ],
     problems: [
-      "解决线上命令执行中的身份替换、未审批执行、重复副作用和恢复竞态。",
-      "解决远程 Worker、MCP 工具和敏感配置接入后安全边界分散的问题。",
+      "解决 AI 直接触达生产主机时权限不清、过程不可见、审批与实际执行请求不一致的问题。",
+      "解决远程 Worker、MCP 工具和敏感凭据接入后安全边界分散、结果难以追溯的问题。",
     ],
     visualLabel: "Approval / Worker / MCP Governance",
     visualNodes: ["AI Plan", "Approval Gate", "mTLS Worker", "Audit + Result"],
