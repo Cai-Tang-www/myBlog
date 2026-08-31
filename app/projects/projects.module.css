@@ -26,15 +26,17 @@
 .connector { height: 1px; background: #6ba8d9; box-shadow: 0 0 0 1px rgba(107,168,217,.15); }
 .visualFooter { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: clamp(2rem, 5vw, 3.6rem); color: #8da1b6; font-family: monospace; font-size: .62rem; }
 .visual figcaption { padding: .6rem .9rem; color: #8b949e; font-size: .74rem; }
-.imageStage { position: relative; background: #101318; line-height: 0; }
-.projectImage { display: block; width: 100%; height: auto; max-height: min(56vw, 34rem); object-fit: contain; }
+.visualGallery { border-color: rgba(34,34,34,.14); background: #f4f5f7; color: #222; }
+.visualGallery figcaption { border-top: 1px solid rgba(34,34,34,.1); color: #69717c; }
+.imageStage { position: relative; display: grid; aspect-ratio: 16 / 9; place-items: center; overflow: hidden; background: #f4f5f7; line-height: 0; }
+.projectImage { display: block; width: 100%; height: 100%; object-fit: contain; }
 .imageControl { position: absolute; top: 50%; display: grid; width: 2.4rem; height: 2.4rem; place-items: center; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; background: rgba(16,19,24,.72); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; transform: translateY(-50%); transition: background-color 180ms ease, transform 180ms ease; }
 .imageControl:hover { background: rgba(49,95,133,.9); transform: translateY(-50%) scale(1.05); }
 .imageControlPrevious { left: 1rem; }
 .imageControlNext { right: 1rem; }
 .imageCounter { position: absolute; right: 1rem; bottom: 1rem; padding: .32rem .5rem; background: rgba(16,19,24,.72); color: #fff; font-family: monospace; font-size: .72rem; line-height: 1; }
-.thumbnails { display: flex; gap: .55rem; padding: .7rem .8rem; overflow-x: auto; background: #171a20; }
-.thumbnail { flex: 0 0 7rem; padding: 0; border: 1px solid rgba(255,255,255,.18); background: #101318; line-height: 0; cursor: pointer; opacity: .65; transition: border-color 180ms ease, opacity 180ms ease; }
+.thumbnails { display: flex; gap: .55rem; padding: .7rem .8rem; overflow-x: auto; background: #e8ebef; }
+.thumbnail { flex: 0 0 7rem; padding: 0; border: 1px solid rgba(34,34,34,.16); background: #f8f9fa; line-height: 0; cursor: pointer; opacity: .65; transition: border-color 180ms ease, opacity 180ms ease; }
 .thumbnail img { display: block; width: 100%; height: 3.8rem; object-fit: cover; }
 .thumbnail:hover, .thumbnailActive { border-color: #8dbfd9; opacity: 1; }
 .details { padding: 1.4rem 1.3rem 1.3rem; border: 1px solid var(--border-soft); background: var(--surface-card); animation: detailIn 280ms ease both; }
@@ -58,7 +60,7 @@
 .projectLink { text-decoration: none; }
 .projectLink:hover { text-decoration: underline; text-underline-offset: .15em; }
 .privateNote { margin: 0; color: #888; }
-.projectRail { position: sticky; top: 5.4rem; min-width: 0; padding: 1rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,.08); }
+.projectRail { position: sticky; top: 5.4rem; min-width: 0; padding: 0; border: 0; background: transparent; }
 .railHeading { display: flex; justify-content: space-between; gap: .8rem; color: #888; }
 .projectList { display: grid; gap: .65rem; max-height: min(40rem, calc(100vh - 10rem)); margin-top: .8rem; padding-right: .25rem; overflow-y: auto; scrollbar-width: thin; }
 .projectItem { display: grid; grid-template-columns: 1.5rem minmax(0,1fr) auto; align-items: center; gap: .75rem; width: 100%; min-height: 7rem; padding: .9rem; border: 1px solid rgba(34,34,34,.12); border-radius: 2px; background: rgba(255,255,255,.22); color: #555; text-align: left; cursor: pointer; transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease; }
@@ -74,5 +76,4 @@
 .projectItemActive .itemDot { background: #315f85; box-shadow: 0 0 0 3px rgba(49,95,133,.12); }
 .railHint { margin: .8rem 0 0; color: #999; font-size: .72rem; }
 @media (max-width: 980px) { .showcase { grid-template-columns: minmax(0,1fr) minmax(15rem,18rem); gap: 1.2rem; } .detailGrid { grid-template-columns: 1fr; } }
-@media (max-width: 720px) { .intro { padding-right: .2rem; padding-left: .2rem; } .showcase { grid-template-columns: 1fr; } .projectRail { position: static; order: -1; } .projectList { grid-template-columns: repeat(3,minmax(0,1fr)); max-height: 12rem; } .projectItem { grid-template-columns: auto 1fr auto; min-height: 5.8rem; padding: .7rem; } .itemCopy span, .railHint { display: none; } .visualBody { min-height: 21rem; padding: 1.4rem; } .projectImage { max-height: 21rem; object-fit: cover; } .imageControl { width: 2.1rem; height: 2.1rem; } .bottomRow { align-items: flex-start; flex-direction: column; } }
-@media (max-width: 480px) { .projectList { grid-template-columns: 1fr; max-height: 18rem; } .itemCopy span { display: block; } }
+@media (max-width: 720px) { .intro { padding-right: .2rem; padding-left: .2rem; } .showcase { grid-template-columns: 1fr; } .projectRail { position: static; order: -1; } .projectList { grid-template-columns: repeat(3,minmax(0,1fr)); max-height: none; padding-right: 0; overflow: visible; } .projectItem { grid-template-columns: 1fr; gap: .4rem; min-height: 7.2rem; padding: .7rem; } .itemCopy span, .railHint { display: none; } .itemDot { justify-self: end; } .visualBody { min-height: 21rem; padding: 1.4rem; } .imageControl { width: 2.1rem; height: 2.1rem; } .bottomRow { align-items: flex-start; flex-direction: column; } }

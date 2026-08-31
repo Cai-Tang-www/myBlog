@@ -49,7 +49,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
 
       <section className={styles.showcase} aria-label="项目经历展示">
         <div className={styles.mainColumn}>
-          <figure className={styles.visual} aria-label={`${activeProject.name} 项目预览`}>
+          <figure className={`${styles.visual} ${activeImage ? styles.visualGallery : ""}`} aria-label={`${activeProject.name} 项目预览`}>
             {activeImage ? (
               <>
                 <div className={styles.imageStage} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
