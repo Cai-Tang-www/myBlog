@@ -66,6 +66,14 @@ export const projects: Project[] = [
     ],
     visualLabel: "Protocol / Recovery / Observability",
     visualNodes: ["AG-UI", "A2A Gateway", "Run Lease", "Trace + Replay"],
+    images: [
+      {
+        src: "/images/projects/goai-console.png",
+        alt: "GoAI Runtime Console 的 Agents 注册与管理界面",
+        width: 3572,
+        height: 1784,
+      },
+    ],
     link: { label: "查看个人仓库", href: "https://github.com/Cai-Tang-www/GoAI" },
   },
   {
