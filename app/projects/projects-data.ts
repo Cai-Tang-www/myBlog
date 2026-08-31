@@ -32,6 +32,20 @@ export const projects: Project[] = [
     ],
     visualLabel: "Runtime / Security / Extension",
     visualNodes: ["Gateway", "Runtime Hooks", "ToolManager", "Workspace Sandbox"],
+    images: [
+      {
+        src: "/images/projects/neo-code-summary.png",
+        alt: "NeoCode 桌面端项目总结与权限请求界面",
+        width: 3056,
+        height: 1656,
+      },
+      {
+        src: "/images/projects/neo-code-feishu.png",
+        alt: "飞书中的 Neo-Code 任务状态与工具审批消息",
+        width: 3070,
+        height: 1826,
+      },
+    ],
     link: { label: "查看开源仓库", href: "https://github.com/1024XEngineer/neo-code" },
   },
   {
