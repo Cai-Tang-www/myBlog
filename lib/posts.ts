@@ -1,9 +1,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import rehypeKatex from "rehype-katex";
+import rehypeRaw from "rehype-raw";
+import rehypeStringify from "rehype-stringify";
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
-import remarkHtml from "remark-html";
+import remarkMath from "remark-math";
+import remarkRehype from "remark-rehype";
 import { buildImageUrl } from "@/lib/image";
 
 const POSTS_DIRECTORY = path.join(process.cwd(), "content", "posts");
@@ -277,7 +281,11 @@ export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
 
   const processed = await remark()
     .use(remarkGfm)
-    .use(remarkHtml)
+    .use(remarkMath)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeKatex)
+    .use(rehypeStringify)
     .process(source.content);
 
   const sections = extractHeadingSections(source.content);
