@@ -190,6 +190,74 @@
   color: #555555;
 }
 
+/* GitHub 风格警示块（> [!NOTE] 等，由 lib/markdown-callout.ts 渲染） */
+
+.content :global(.callout) {
+  margin: 1.4rem 0 0;
+  padding: 0.85rem 1.05rem 0.4rem;
+  border: 1px solid rgba(34, 34, 34, 0.16);
+  border-left-width: 4px;
+  border-radius: 0;
+}
+
+.content :global(.callout) :global(p) {
+  margin: 0.6rem 0 0;
+}
+
+.content :global(.callout) :global(p.callout-title) {
+  margin: 0;
+  font-family: var(--font-sans), "Segoe UI", "PingFang SC", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.content :global(.callout-note) {
+  border-left-color: #1f6feb;
+  background: rgba(31, 111, 235, 0.07);
+}
+
+.content :global(.callout-note) :global(.callout-title) {
+  color: #1f6feb;
+}
+
+.content :global(.callout-tip) {
+  border-left-color: #1a7f37;
+  background: rgba(26, 127, 55, 0.07);
+}
+
+.content :global(.callout-tip) :global(.callout-title) {
+  color: #1a7f37;
+}
+
+.content :global(.callout-important) {
+  border-left-color: #8250df;
+  background: rgba(130, 80, 223, 0.08);
+}
+
+.content :global(.callout-important) :global(.callout-title) {
+  color: #8250df;
+}
+
+.content :global(.callout-warning) {
+  border-left-color: #9a6700;
+  background: rgba(154, 103, 0, 0.08);
+}
+
+.content :global(.callout-warning) :global(.callout-title) {
+  color: #9a6700;
+}
+
+.content :global(.callout-caution) {
+  border-left-color: #cf222e;
+  background: rgba(207, 34, 46, 0.07);
+}
+
+.content :global(.callout-caution) :global(.callout-title) {
+  color: #cf222e;
+}
+
 .content :global(hr) {
   margin: 2rem 0 0;
   border: 0;
