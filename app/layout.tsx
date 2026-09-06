@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { CanvasNest } from "@/components/canvas-nest";
 import { BackToTop } from "@/components/back-to-top";
 import { siteConfig } from "@/lib/site-config";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 
 const sans = Space_Grotesk({
