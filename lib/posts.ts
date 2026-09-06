@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkRehype from "remark-rehype";
 import { buildImageUrl } from "@/lib/image";
+import { remarkCallouts } from "@/lib/markdown-callout";
 
 const POSTS_DIRECTORY = path.join(process.cwd(), "content", "posts");
 const WORDS_PER_MINUTE = 240;
@@ -282,6 +283,7 @@ export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
   const processed = await remark()
     .use(remarkGfm)
     .use(remarkMath)
+    .use(remarkCallouts)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeKatex)
