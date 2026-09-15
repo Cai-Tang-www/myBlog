@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CanvasNest } from "@/components/canvas-nest";
 import { BackToTop } from "@/components/back-to-top";
+import { PetCompanion } from "@/components/pet-companion";
 import { siteConfig } from "@/lib/site-config";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -126,6 +127,7 @@ export default function RootLayout({
           <SiteFooter />
         </div>
         <BackToTop />
+        <PetCompanion />
       </body>
     </html>
   );
