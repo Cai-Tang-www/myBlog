@@ -16,7 +16,19 @@
   user-select: none;
   -webkit-user-select: none;
   z-index: 45;
-  font-family: inherit;
+  /* 字体栈与全站正文保持一致（见 app/blog/[slug]/post.module.css 的 .content）。
+     这里**不能**用 inherit：那会继承 body 的 var(--font-sans) = Space Grotesk，
+     拉丁字符变成几何展示体，既和正文不是同一个字体，字宽也更大，更容易撑破气泡。 */
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Noto Sans CJK SC",
+    "Microsoft YaHei",
+    var(--font-serif),
+    Georgia,
+    serif;
   transition:
     left 0.16s ease,
     top 0.16s ease;
@@ -151,13 +163,15 @@
   transition-delay: 0.3s;
 }
 
-/* ── 气泡文字区 ── */
+/* ── 气泡文字区 ──
+   几何照搬原插件：left 44.25% / top 36% / width 66% / height 64%。
+   之前我擅自放宽到 74%×68%，文字块比椭圆内缘还宽，长句换行后会顶出气泡。 */
 .text {
   position: absolute;
   left: 44.25%;
-  top: 38%;
-  width: 74%;
-  height: 68%;
+  top: 36%;
+  width: 66%;
+  height: 64%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
@@ -194,11 +208,14 @@
   justify-content: center;
   width: 100%;
   line-height: 1.2;
-  margin: calc(var(--pet-u) * 5) 0;
+  /* 行距用原插件的 2u。调大会让 3 行块上下探到椭圆收窄处而溢出 */
+  margin: calc(var(--pet-u) * 2) 0;
 }
 .tx {
   display: inline-block;
-  max-width: 100%;
+  /* 换行上限 600u：椭圆左右内缘在不同高度是变化的，取最窄处（三行块的上下两行，
+     ≈600u）作为封顶，长句就不会顶出气泡；而最大的 22 档标题行约 600u 仍能单行放下。 */
+  max-width: calc(var(--pet-u) * 600);
   white-space: normal;
   overflow-wrap: anywhere;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
