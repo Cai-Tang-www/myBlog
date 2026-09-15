@@ -33,7 +33,8 @@ export function BackToTop() {
       aria-label="回到顶部"
       style={{
         position: "fixed",
-        right: "1.2rem",
+        // 右下角让给小宠物挂件（原位在右下，会与鲸鱼重叠）
+        left: "1.2rem",
         bottom: "2rem",
         zIndex: 40,
         display: "flex",

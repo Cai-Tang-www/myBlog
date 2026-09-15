@@ -1,0 +1,615 @@
+/* ─────────────────────────────────────────────────────────────
+   小宠物挂件样式
+   几何、调色板、菜单控件尺寸全部移植自原插件 DSH 小鲸鱼挂件，
+   色值原样搬运（气泡描边 #203170、文字 #536ba9、副文 #9fb0d9、
+   菜单主色 rgba(32,49,112,·)）。
+   --pet-base 为挂件方形边长，--pet-u 为 1026 画布单位（1u = base/1026）。
+   ───────────────────────────────────────────────────────────── */
+
+.root {
+  --pet-base: 0px;
+  --pet-u: calc(var(--pet-base) / 1026);
+  position: fixed;
+  width: var(--pet-base);
+  height: var(--pet-base);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 45;
+  font-family: inherit;
+  transition:
+    left 0.16s ease,
+    top 0.16s ease;
+}
+
+.root *,
+.root *::before,
+.root *::after {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* 首帧尚未测量视口，先藏起来避免闪一下 */
+.hidden {
+  visibility: hidden;
+}
+
+/* 拖拽中：关掉过渡，1:1 跟手 */
+.dragging {
+  transition: none;
+}
+.dragging .pet {
+  cursor: grabbing;
+}
+
+/* 调整尺寸期间：关掉 left/top 过渡。
+   原插件同一个坑（「滑块抖动：CSS 过渡在 JS 块之后求值，拖动滑块全程保持 transition:none」）。 */
+.noTransition {
+  transition: none;
+}
+
+/* 左吸附时整体水平镜像 */
+.doll {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.3s ease;
+}
+.flipped {
+  transform: scaleX(-1);
+}
+
+/* 按压 Q 弹：底边中心为锚点，底部坐标不动 */
+.squish {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.squished {
+  transform: scaleY(0.88) scaleX(1.05);
+}
+
+/* 鲸鱼本体：cut-out 图，贴在方框右下角，占 59.45% */
+.pet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 59.45%;
+  height: 59.45%;
+  display: block;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+/* 气泡画布：宽 100%，高按 1026:700 比例 */
+.bubble {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  aspect-ratio: 1026 / 700;
+  pointer-events: none;
+  z-index: 1;
+}
+.bubbleSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* 只有真正画出来的形状可点，空白处不挡下面的内容与鲸鱼 */
+.bubbleOpen .bubbleSvg ellipse {
+  pointer-events: visiblePainted;
+  cursor: pointer;
+}
+
+/* 气泡三段形体依次弹出（大椭圆 → 小圆 → 更小圆） */
+.shape,
+.shape1,
+.shape2 {
+  opacity: 0;
+  transform: scale(0.7);
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+.bubbleOpen .shape,
+.bubbleOpen .shape1,
+.bubbleOpen .shape2 {
+  opacity: 1;
+  transform: none;
+}
+/* 开态错峰：更小圆先到，主体最后 */
+.bubbleOpen .shape2 {
+  transition-delay: 0s;
+}
+.bubbleOpen .shape1 {
+  transition-delay: 0.13s;
+}
+.bubbleOpen .shape {
+  transition-delay: 0.26s;
+}
+/* 关态反向错峰 */
+.bubbleOpen .shape {
+  transition-delay: 0.26s;
+}
+.shape {
+  transition-delay: 0.1s;
+}
+.shape1 {
+  transition-delay: 0.2s;
+}
+.shape2 {
+  transition-delay: 0.3s;
+}
+
+/* ── 气泡文字区 ── */
+.text {
+  position: absolute;
+  left: 44.25%;
+  top: 38%;
+  width: 74%;
+  height: 68%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #536ba9;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+/* 过渡按属性拆分：出现延迟不能拖累 transform，否则翻转文字会滞后闪烁 */
+.bubbleOpen .text {
+  opacity: 1;
+  transition: opacity 0.16s ease 0.36s;
+}
+.flipped .text {
+  transform: translate(-50%, -50%) scaleX(-1);
+}
+
+.textInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  animation: petFadeIn 0.22s ease both;
+}
+
+/* 单行：字号档由内联 style 按原插件公式写入 */
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1.2;
+  margin: calc(var(--pet-u) * 5) 0;
+}
+.tx {
+  display: inline-block;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+.italic {
+  font-style: italic;
+}
+.underline {
+  text-decoration: underline;
+}
+/* 时段徽标：文字转白、底色取当前时段色（原插件 peak mini 样式） */
+.badge {
+  padding: calc(var(--pet-u) * 3) calc(var(--pet-u) * 16);
+  border-radius: calc(var(--pet-u) * 16);
+  color: #ffffff;
+  text-shadow: none;
+}
+
+/* 气泡内动图 */
+.gif {
+  display: block;
+  width: auto;
+  max-width: calc(var(--pet-u) * 560);
+  max-height: calc(var(--pet-u) * 400);
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+
+/* ── 跑马灯渐变文字 ──
+   沿用原插件 dshwv-rgb 系列色值。配置里写 gradient: "candy" 即可，不用改 CSS。 */
+.tx[data-grad] {
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  animation: petRainbow 2.6s linear infinite;
+}
+.tx[data-grad="macaron"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(255, 180, 200),
+    rgb(255, 205, 170),
+    rgb(255, 225, 165),
+    rgb(245, 240, 180),
+    rgb(190, 240, 210),
+    rgb(180, 230, 245),
+    rgb(190, 215, 250),
+    rgb(220, 200, 245),
+    rgb(240, 200, 230),
+    rgb(255, 180, 200)
+  );
+}
+.tx[data-grad="candy"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(255, 145, 170),
+    rgb(255, 170, 130),
+    rgb(255, 195, 110),
+    rgb(240, 220, 115),
+    rgb(140, 220, 175),
+    rgb(115, 210, 205),
+    rgb(130, 195, 240),
+    rgb(160, 170, 235),
+    rgb(210, 155, 230),
+    rgb(235, 135, 190),
+    rgb(255, 145, 170)
+  );
+}
+.tx[data-grad="rouge"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(140, 25, 45),
+    rgb(175, 35, 60),
+    rgb(120, 20, 55),
+    rgb(160, 40, 75),
+    rgb(190, 55, 80),
+    rgb(130, 30, 65),
+    rgb(140, 25, 45)
+  );
+}
+.tx[data-grad="bamboo"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(70, 180, 85),
+    rgb(95, 200, 105),
+    rgb(55, 165, 70),
+    rgb(110, 215, 120),
+    rgb(80, 190, 95),
+    rgb(60, 172, 78),
+    rgb(70, 180, 85)
+  );
+}
+.tx[data-grad="aurora"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(70, 240, 200),
+    rgb(90, 200, 255),
+    rgb(120, 140, 255),
+    rgb(180, 120, 255),
+    rgb(240, 140, 255),
+    rgb(70, 240, 200)
+  );
+}
+.tx[data-grad="deepsea"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(20, 90, 180),
+    rgb(30, 140, 210),
+    rgb(40, 180, 220),
+    rgb(20, 120, 190),
+    rgb(50, 160, 230),
+    rgb(25, 100, 200),
+    rgb(20, 90, 180)
+  );
+}
+.tx[data-grad="sunset"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(255, 180, 80),
+    rgb(255, 130, 90),
+    rgb(255, 90, 110),
+    rgb(220, 90, 150),
+    rgb(160, 90, 190),
+    rgb(255, 180, 80)
+  );
+}
+.tx[data-grad="forest"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(30, 100, 60),
+    rgb(60, 140, 80),
+    rgb(90, 180, 90),
+    rgb(140, 200, 80),
+    rgb(180, 210, 90),
+    rgb(30, 100, 60)
+  );
+}
+.tx[data-grad="champagne"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(220, 180, 100),
+    rgb(240, 205, 130),
+    rgb(255, 225, 160),
+    rgb(230, 190, 110),
+    rgb(245, 210, 140),
+    rgb(220, 180, 100)
+  );
+}
+.tx[data-grad="lavender"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(180, 150, 255),
+    rgb(200, 170, 255),
+    rgb(230, 180, 240),
+    rgb(255, 190, 220),
+    rgb(240, 160, 200),
+    rgb(180, 150, 255)
+  );
+}
+.tx[data-grad="mint"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(120, 230, 180),
+    rgb(150, 240, 200),
+    rgb(170, 240, 230),
+    rgb(140, 220, 240),
+    rgb(120, 200, 220),
+    rgb(120, 230, 180)
+  );
+}
+.tx[data-grad="lava"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(255, 60, 40),
+    rgb(255, 110, 30),
+    rgb(255, 170, 40),
+    rgb(255, 210, 70),
+    rgb(255, 140, 50),
+    rgb(255, 60, 40)
+  );
+}
+.tx[data-grad="galaxy"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(40, 30, 90),
+    rgb(70, 50, 130),
+    rgb(110, 70, 170),
+    rgb(160, 90, 190),
+    rgb(220, 120, 180),
+    rgb(40, 30, 90)
+  );
+}
+.tx[data-grad="ink"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(20, 20, 20),
+    rgb(80, 80, 80),
+    rgb(140, 140, 140),
+    rgb(200, 200, 200),
+    rgb(250, 250, 250),
+    rgb(250, 250, 250),
+    rgb(200, 200, 200),
+    rgb(140, 140, 140),
+    rgb(80, 80, 80),
+    rgb(20, 20, 20)
+  );
+}
+.tx[data-grad="indigo"] {
+  background-image: linear-gradient(
+    90deg,
+    rgb(32, 49, 112),
+    rgb(52, 76, 146),
+    rgb(74, 102, 180),
+    rgb(100, 126, 210),
+    rgb(130, 132, 224),
+    rgb(130, 132, 224),
+    rgb(100, 126, 210),
+    rgb(74, 102, 180),
+    rgb(52, 76, 146),
+    rgb(32, 49, 112)
+  );
+}
+
+/* ── 悬停鲸鱼时露出的三点按钮（原 dshwv-menu-btn） ── */
+.menuBtn {
+  position: absolute;
+  top: calc(40.55% + 4px);
+  right: 4px;
+  width: 26px;
+  height: 26px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 6px;
+  background: rgba(32, 49, 112, 0.85);
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+.menuBtn span {
+  display: block;
+  width: 14px;
+  height: 2px;
+  background: #fff;
+  border-radius: 1px;
+}
+.menuBtn:hover {
+  background: #203170;
+}
+.root:hover .menuBtn,
+.menuBtnVisible,
+.menuBtn:focus-visible {
+  opacity: 1;
+}
+/* 「隐藏菜单按钮」开启后：靠右键 / 长按唤出，按钮本身不显示 */
+.menuBtnHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+@media (hover: none) {
+  .menuBtn {
+    opacity: 1;
+  }
+}
+
+/* ── 设置面板（原 dshwv-menu） ──
+   用 position:fixed + 打开时算好的坐标，**不随挂件方框尺寸变化而移动**。
+   否则拖大小滑块时菜单会跟着方框一起上移，滑块从光标下跑掉 → 看上去在「闪现」。 */
+.menu {
+  position: fixed;
+  box-sizing: border-box;
+  width: 224px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(32, 49, 112, 0.35);
+  border-radius: 10px;
+  padding: 10px 12px;
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s cubic-bezier(0.34, 1.3, 0.6, 1);
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  color-scheme: light;
+}
+.menuOpen {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* 菜单行（原 dshwv-menu-row） */
+.menuRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0;
+  color: #203170;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.menuLabel {
+  flex: 0 0 auto;
+}
+/* 滑块（原 dshwv-range） */
+.range {
+  flex: 1;
+  min-width: 0;
+  accent-color: #203170;
+}
+/* 档号输入（原 dshwv-number） */
+.number {
+  width: 44px;
+  box-sizing: border-box;
+  border: 1px solid rgba(32, 49, 112, 0.4);
+  border-radius: 6px;
+  padding: 2px 4px;
+  font-size: 12px;
+  color: #203170;
+  background: #fff;
+  font-family: inherit;
+}
+.number:disabled {
+  opacity: 0.4;
+  background: rgba(32, 49, 112, 0.06);
+  cursor: not-allowed;
+}
+/* 音量百分比（原 dshwv-volpct） */
+.volPct {
+  width: 44px;
+  flex: 0 0 auto;
+  text-align: right;
+  color: #203170;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+/* 下拉式按钮（原 dshwv-rolebtn / dshwv-sound） */
+.select {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  border: 1px solid rgba(32, 49, 112, 0.4);
+  border-radius: 6px;
+  background: rgba(32, 49, 112, 0.08);
+  color: #203170;
+  font-size: 12px;
+  font-family: inherit;
+  padding: 0 4px;
+  cursor: pointer;
+}
+.select:hover {
+  background: rgba(32, 49, 112, 0.16);
+}
+.select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+/* 复选框（原 dshwv-check） */
+.check {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  accent-color: #203170;
+  cursor: pointer;
+}
+/* 实心按钮（原 dshwv-roleimport） */
+.solidBtn {
+  border: 1px solid rgba(32, 49, 112, 0.4);
+  border-radius: 6px;
+  background: #203170;
+  color: #fff;
+  font-size: 12px;
+  font-family: inherit;
+  padding: 3px 8px;
+  cursor: pointer;
+  flex: 1;
+}
+.solidBtn:hover {
+  background: #2f4488;
+}
+/* 分隔线（原 dshwv-menu-sep） */
+.sep {
+  height: 1px;
+  background: rgba(32, 49, 112, 0.25);
+  margin: 6px 0;
+}
+
+@keyframes petFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes petRainbow {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
