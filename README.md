@@ -80,13 +80,5 @@ NEXT_PUBLIC_SITE_URL=
 3. 可选：在仓库 Variables 里添加 `PAGES_CUSTOM_DOMAIN=blog.yourdomain.com`，workflow 会自动写入 `CNAME`。
 4. 在 Pages 设置中绑定同域名，并在 DNS 配置对应解析。
 
-## 集成清单
 
-- 账号注册和 key 获取清单见 [docs/integration-setup.md](./docs/integration-setup.md)
-- 配置完成后执行 `npm run env:check`
 
-## 下一步建议
-
-- 接入对象存储自动上传脚本（可选）
-- 在 CI 中补充 RSS、sitemap 生成
-- 增加 MCP server 包和发布流水线
