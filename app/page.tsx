@@ -5,7 +5,7 @@ import { getAllPosts, getFeaturedPosts, type PostSummary } from "@/lib/posts";
 import { siteConfig } from "@/lib/site-config";
 import styles from "./page.module.css";
 
-type CategoryKey = "agent" | "engineering" | "architecture";
+type CategoryKey = "agent" | "engineering" | "architecture" | "essay";
 
 interface CategorySection {
   id: CategoryKey;
@@ -15,13 +15,27 @@ interface CategorySection {
   posts: PostSummary[];
 }
 
-const categoryOrder: CategoryKey[] = ["agent", "engineering", "architecture"];
+const categoryOrder: CategoryKey[] = ["agent", "engineering", "architecture", "essay"];
 
 const manualCategoryBySlug: Record<string, CategoryKey> = {
+  // Agent 开发
   "hooks-lifecycle-control-layer": "agent",
   "subagent-from-dag-to-inline": "agent",
   "skills-agent-brain": "agent",
+  // 工程经验
   "human-in-the-loop-neocode": "engineering",
+  "before-you-write-code": "engineering",
+  "android-hardening-anticheat-architecture": "engineering",
+  // 架构思考
+  "approval-and-tamper-proof-execution": "architecture",
+  "document-guides": "architecture",
+  "jumpserver-transient-worker-reverse-connect": "architecture",
+  "neocode-agent": "architecture",
+  "sre-buddy-security-auth-spec": "architecture",
+  "steer-and-replayable-session": "architecture",
+  // 随笔
+  "national-college-entrance-examination": "essay",
+  "who-is-the-creator": "essay",
 };
 
 const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
@@ -61,10 +75,12 @@ function buildCategorySections(posts: PostSummary[]): CategorySection[] {
     agent: [],
     engineering: [],
     architecture: [],
+    essay: [],
   };
 
   for (const post of posts) {
-    const mapped = manualCategoryBySlug[post.slug] ?? "architecture";
+    // 未在 manualCategoryBySlug 显式登记的文章，默认归入「随笔」
+    const mapped = manualCategoryBySlug[post.slug] ?? "essay";
     grouped[mapped].push(post);
   }
 
@@ -89,6 +105,13 @@ function buildCategorySections(posts: PostSummary[]): CategorySection[] {
       title: "架构思考",
       note: "围绕系统边界、能力分层与长期演进做结构化思考。",
       posts: grouped.architecture,
+    },
+    {
+      id: "essay",
+      phase: "板块 4",
+      title: "随笔",
+      note: "技术之外的记录与思考：情感、观察与阶段性想法。",
+      posts: grouped.essay,
     },
   ];
 }
