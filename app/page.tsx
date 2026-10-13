@@ -22,6 +22,7 @@ const manualCategoryBySlug: Record<string, CategoryKey> = {
   "subagent-from-dag-to-inline": "agent",
   "skills-agent-brain": "agent",
   "human-in-the-loop-neocode": "engineering",
+  "android-hardening-anticheat-architecture": "engineering",
 };
 
 const heroMainTypingSvgUrl = `https://readme-typing-svg.demolab.com/?${new URLSearchParams(
