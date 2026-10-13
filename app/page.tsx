@@ -18,12 +18,22 @@ interface CategorySection {
 const categoryOrder: CategoryKey[] = ["agent", "engineering", "architecture", "essay"];
 
 const manualCategoryBySlug: Record<string, CategoryKey> = {
+  // Agent 开发
   "hooks-lifecycle-control-layer": "agent",
   "subagent-from-dag-to-inline": "agent",
   "skills-agent-brain": "agent",
+  // 工程经验
   "human-in-the-loop-neocode": "engineering",
   "before-you-write-code": "engineering",
   "android-hardening-anticheat-architecture": "engineering",
+  // 架构思考
+  "approval-and-tamper-proof-execution": "architecture",
+  "document-guides": "architecture",
+  "jumpserver-transient-worker-reverse-connect": "architecture",
+  "neocode-agent": "architecture",
+  "sre-buddy-security-auth-spec": "architecture",
+  "steer-and-replayable-session": "architecture",
+  // 随笔
   "national-college-entrance-examination": "essay",
   "who-is-the-creator": "essay",
 };
@@ -69,7 +79,8 @@ function buildCategorySections(posts: PostSummary[]): CategorySection[] {
   };
 
   for (const post of posts) {
-    const mapped = manualCategoryBySlug[post.slug] ?? "architecture";
+    // 未在 manualCategoryBySlug 显式登记的文章，默认归入「随笔」
+    const mapped = manualCategoryBySlug[post.slug] ?? "essay";
     grouped[mapped].push(post);
   }
 
